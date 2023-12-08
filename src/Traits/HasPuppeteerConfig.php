@@ -11,12 +11,13 @@ trait HasPuppeteerConfig
         return \config('recap.puppeteer.paper_size_format', 'Letter');
     }
 
-    public static function getNodeBinaryPath(): string
+    public static function getNodeBinaryPath(): ?string
     {
+        /** @var string|null */
         return \config('recap.puppeteer.node');
     }
 
-    public static function getNpmBinaryPath(): string
+    public static function getNpmBinaryPath(): ?string
     {
         return \config('recap.puppeteer.npm');
     }
