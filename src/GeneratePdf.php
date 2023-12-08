@@ -12,14 +12,35 @@ use setasign\Fpdi\PdfReader\PageBoundaries;
 
 final class GeneratePdf
 {
+    private static ?Browsershot $browserShot = null;
+
+    public static function useBrowserShot(Browsershot $browserShot): void
+    {
+        self::$browserShot = $browserShot;
+    }
+
+    protected static function browserShot(): Browsershot
+    {
+        return self::$browserShot ?? new Browsershot();
+    }
+
     public static function view(string $view): Browsershot
     {
         $html = View::make($view)->render();
 
-        return Browsershot::html($html)
-            ->setNodeBinary(DonationRecap::getNodeBinaryPath())
-            ->setNpmBinary(DonationRecap::getNpmBinaryPath())
+        $browserShot = self::browserShot()
+            ->setHtml($html)
             ->format(DonationRecap::getPaperSizeFormat());
+
+        if (DonationRecap::getNodeBinaryPath()) {
+            $browserShot->setNodeBinary(DonationRecap::getNodeBinaryPath());
+        }
+
+        if (DonationRecap::getNpmBinaryPath()) {
+            $browserShot->setNpmBinary(DonationRecap::getNpmBinaryPath());
+        }
+
+        return $browserShot;
     }
 
     public static function combine(array $contents): string
