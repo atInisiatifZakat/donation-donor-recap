@@ -9,7 +9,6 @@
          failOnRisky="true"
          failOnEmptyTestSuite="true"
          beStrictAboutOutputDuringTests="true"
-         cacheDirectory=".phpunit.cache"
 >
   <testsuites>
     <testsuite name="Inisiatif Test Suite">
