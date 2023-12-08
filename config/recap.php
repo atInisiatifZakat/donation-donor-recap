@@ -36,9 +36,9 @@ return [
     ],
 
     'puppeteer' => [
-        'npm' => env('RECAP_PUPPETEER_NPM_BINARY', 'npm'),
+        'npm' => env('RECAP_PUPPETEER_NPM_BINARY'),
 
-        'node' => env('RECAP_PUPPETEER_NODE_BINARY', 'node'),
+        'node' => env('RECAP_PUPPETEER_NODE_BINARY'),
 
         'paper_size_format' => env('RECAP_PUPPETEER_LETTER_SIZE', 'Letter'),
     ],
