@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Inisiatif\DonationRecap\Jobs;
 
 use Throwable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -42,9 +43,13 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
             $path = \sprintf('%s/%s/%s.pdf', Recap::getFileGeneratedBasePath(), now()->year, Str::random(64));
 
-            $content = GeneratePdf::view('recap::recap')->pdf();
+            $content = GeneratePdf::view('recap::recap')->base64pdf();
 
-            Storage::disk(Recap::getDefaultFileDisk())->put($path, $content);
+            if (Str::isJson($content)) {
+                $content = Arr::get(\json_decode($content, true, 512, JSON_THROW_ON_ERROR), 'result');
+            }
+
+            Storage::disk(Recap::getDefaultFileDisk())->put($path, \base64_decode($content));
 
             $this->donor->update([
                 'disk' => 's3',
