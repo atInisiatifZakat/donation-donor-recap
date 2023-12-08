@@ -19,7 +19,7 @@ final class GeneratePdf
         return Browsershot::html($html)
             ->setNodeBinary(DonationRecap::getNodeBinaryPath())
             ->setNpmBinary(DonationRecap::getNpmBinaryPath())
-            ->format('A4');
+            ->format(DonationRecap::getPaperSizeFormat());
     }
 
     public static function combine(array $contents): string

@@ -22,7 +22,7 @@ return [
     ],
 
     'file' => [
-        'disk' => env('RECAP_STORAGE_DISK', env('FILESYSTEM_DRIVER', 'public')),
+        'disk' => env('RECAP_STORAGE_DISK', env('FILESYSTEM_DISK', 'public')),
 
         /**
          * Directory generated file pdf
@@ -39,5 +39,7 @@ return [
         'npm' => env('RECAP_PUPPETEER_NPM_BINARY', 'npm'),
 
         'node' => env('RECAP_PUPPETEER_NODE_BINARY', 'node'),
+
+        'paper_size_format' => env('RECAP_PUPPETEER_LETTER_SIZE', 'Letter'),
     ],
 ];
