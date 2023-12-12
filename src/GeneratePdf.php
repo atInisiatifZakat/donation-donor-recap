@@ -24,9 +24,9 @@ final class GeneratePdf
         return self::$browserShot ?? new Browsershot();
     }
 
-    public static function view(string $view): Browsershot
+    public static function view(string $view, array $data = [], array $mergeData = []): Browsershot
     {
-        $html = View::make($view)->render();
+        $html = View::make($view, $data, $mergeData)->render();
 
         $browserShot = self::browserShot()
             ->setHtml($html)
