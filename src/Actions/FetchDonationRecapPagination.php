@@ -26,11 +26,14 @@ final class FetchDonationRecapPagination
                 AllowedFilter::exact('state', 'state'),
                 AllowedFilter::exact('template', 'template_id'),
                 AllowedFilter::callback('start', static function (Builder $query, $value, string $property): Builder {
-                    $query->where($property, '>=', Carbon::parse($value)->startOfDay());
+                    return $query->where($property, '>=', Carbon::parse($value)->startOfDay());
                 }, 'start_at'),
                 AllowedFilter::callback('end', static function (Builder $query, $value, string $property): Builder {
-                    $query->where($property, '<=', Carbon::parse($value)->endOfDay());
+                    return $query->where($property, '<=', Carbon::parse($value)->endOfDay());
                 }, 'end_at'),
+                AllowedFilter::callback('created', static function (Builder $query, $value, string $property): Builder {
+                    return $query->where($property, Carbon::parse($value)->toDateString());
+                }, 'created_at'),
                 AllowedFilter::exact('donor', 'donors.donor_id'),
             ])
             ->paginate()
