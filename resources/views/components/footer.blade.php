@@ -2,7 +2,9 @@
     <div class="h-1 bg-gray-300 w-full my-4"></div>
     <div class="flex justify-between px-4 mb-4 items-end">
         <div class="w-72">
-            <p class="font-bold text-gray-700 text-sm">Kantor Pusat</p>
+            <p class="font-bold text-gray-700 text-sm">
+                Kantor Pusat
+            </p>
             <p class="font-bold text-gray-700 text-sm mb-1">
                 Inisiatif Zakat Indonesia
             </p>

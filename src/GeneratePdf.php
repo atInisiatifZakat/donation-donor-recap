@@ -29,6 +29,7 @@ final class GeneratePdf
         $html = View::make($view, $data, $mergeData)->render();
 
         $browserShot = self::browserShot()
+            ->margins(.5, 0, 0, 0, 'cm')
             ->setHtml($html)
             ->format(DonationRecap::getPaperSizeFormat());
 

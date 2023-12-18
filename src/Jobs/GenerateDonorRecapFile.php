@@ -46,7 +46,7 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
             $content = GeneratePdf::view('recap::recap', [
                 'donor' => $this->donor,
                 'recap' => $this->donationRecap,
-                'items' => $this->donationRecap->donors()->get(),
+                'items' => $this->donationRecap->items()->get(),
             ])->base64pdf();
 
             if (Str::isJson($content)) {

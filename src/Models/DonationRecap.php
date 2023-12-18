@@ -28,6 +28,11 @@ final class DonationRecap extends Model
         return $this->belongsTo(DonationRecapTemplate::class);
     }
 
+    public function items(): HasMany
+    {
+        return $this->hasMany(DonationRecapDetail::class);
+    }
+
     public function donors(): HasMany
     {
         return $this->hasMany(DonationRecapDonor::class);
