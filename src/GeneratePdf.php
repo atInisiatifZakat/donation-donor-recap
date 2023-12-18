@@ -30,6 +30,7 @@ final class GeneratePdf
 
         $browserShot = self::browserShot()
             ->margins(.5, 0, 0, 0, 'cm')
+            ->showBackground()
             ->setHtml($html)
             ->format(DonationRecap::getPaperSizeFormat());
 
