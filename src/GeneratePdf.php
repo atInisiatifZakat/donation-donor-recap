@@ -9,6 +9,7 @@ use Spatie\Browsershot\Browsershot;
 use Illuminate\Support\Facades\View;
 use setasign\Fpdi\PdfParser\StreamReader;
 use setasign\Fpdi\PdfReader\PageBoundaries;
+use Spatie\Browsershot\Exceptions\HtmlIsNotAllowedToContainFile;
 
 final class GeneratePdf
 {
@@ -24,6 +25,9 @@ final class GeneratePdf
         return self::$browserShot ?? new Browsershot();
     }
 
+    /**
+     * @throws HtmlIsNotAllowedToContainFile
+     */
     public static function view(string $view, array $data = [], array $mergeData = []): Browsershot
     {
         $html = View::make($view, $data, $mergeData)->render();
@@ -31,6 +35,7 @@ final class GeneratePdf
         $browserShot = self::browserShot()
             ->margins(.5, 0, 0, 0, 'cm')
             ->setHtml($html)
+            ->showBackground()
             ->format(DonationRecap::getPaperSizeFormat());
 
         if (DonationRecap::getNodeBinaryPath()) {
@@ -56,7 +61,7 @@ final class GeneratePdf
 
                 $size = $pdf->getTemplatesize($pageId);
 
-                $pdf->AddPage($size['orientation'], $size);
+                $pdf->AddPage($size['orientation'] ?? 'portrait', $size);
 
                 $pdf->useImportedPage($pageId);
             }

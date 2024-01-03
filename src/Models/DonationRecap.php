@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Inisiatif\DonationRecap\Models;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
+use Inisiatif\DonationRecap\Supports\DonationSummaries;
 
 final class DonationRecap extends Model
 {
@@ -73,5 +76,25 @@ final class DonationRecap extends Model
         $state = $this->getAttribute('state');
 
         return $state->value === $new->value;
+    }
+
+    public function getItemCollection(): Collection
+    {
+        return $this->items()->oldest('donation_transaction_date')->get();
+    }
+
+    public function getCategoryItemsSummaries(): DonationSummaries
+    {
+        $collection = $this->items()->select([
+            DB::raw('donation_funding_category_id as category_id'),
+            DB::raw('donation_funding_category_name as category'),
+            DB::raw('sum(donation_amount) as donation_amount'),
+        ])->groupBy('donation_funding_category_id', 'donation_funding_category_name')
+            ->orderBy('donation_funding_category_id')
+            ->get();
+
+        return new DonationSummaries(
+            $collection->all()
+        );
     }
 }

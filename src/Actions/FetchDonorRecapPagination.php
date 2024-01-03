@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Inisiatif\DonationRecap\Actions;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -26,11 +26,20 @@ final class FetchDonorRecapPagination
                 AllowedFilter::exact('state', 'recap.state'),
                 AllowedFilter::exact('template', 'recap.template_id'),
                 AllowedFilter::callback('start', static function (Builder $query, $value, string $property): Builder {
-                    $query->where($property, '>=', Carbon::parse($value)->startOfDay());
+                    $date = CarbonImmutable::parse($value);
+
+                    return $query->where($property, '>=', $date->startOfDay());
                 }, 'recap.start_at'),
                 AllowedFilter::callback('end', static function (Builder $query, $value, string $property): Builder {
-                    $query->where($property, '<=', Carbon::parse($value)->endOfDay());
+                    $date = CarbonImmutable::parse($value);
+
+                    return $query->where($property, '<=', $date->endOfDay());
                 }, 'recap.end_at'),
+                AllowedFilter::callback('created', static function (Builder $query, $value, string $property): Builder {
+                    $date = CarbonImmutable::parse($value);
+
+                    return $query->whereBetween($property, [$date->startOfDay(), $date->endOfDay()]);
+                }, 'created_at'),
             ])
             ->paginate()
             ->appends($request->all());
