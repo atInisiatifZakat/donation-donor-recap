@@ -11,6 +11,11 @@ trait HasFileStorageConfig
         return \config('recap.file.disk');
     }
 
+    public static function getDefaultFileUrl(): ?string
+    {
+        return \config('recap.file.disk_url');
+    }
+
     public static function getFileGeneratedBasePath(): string
     {
         return \config('recap.file.generated');
