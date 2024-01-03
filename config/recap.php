@@ -16,6 +16,8 @@ return [
 
         'donation_detail_table_name' => env('RECORDING_DONATION_DETAIL_TABLE_NAME', 'edonation.donation_details'),
 
+        'donation_funding_category_table_name' => env('RECORDING_FUNDING_CATEGORY_TABLE_NAME', 'edonation.funding_categories'),
+
         'donation_funding_type_table_name' => env('RECORDING_FUNDING_TYPE_TABLE_NAME', 'edonation.funding_types'),
 
         'donation_program_table_name' => env('RECORDING_PROGRAM_TABLE_NAME', 'edonation.programs'),
@@ -23,6 +25,11 @@ return [
 
     'file' => [
         'disk' => env('RECAP_STORAGE_DISK', env('FILESYSTEM_DISK', 'public')),
+
+        /**
+         * Base url for recap file, useful for S3
+         */
+        'disk_url' => env('RECAP_DISK_URL'),
 
         /**
          * Directory generated file pdf
