@@ -24,6 +24,12 @@ trait HasTableName
         return \config('recap.recording.donation_detail_table_name');
     }
 
+    public static function getFundingCategoryTable(): ?string
+    {
+        /** @var string|null */
+        return \config('recap.recording.donation_funding_category_table_name');
+    }
+
     public static function getFundingTypeTable(): ?string
     {
         /** @var string|null */
