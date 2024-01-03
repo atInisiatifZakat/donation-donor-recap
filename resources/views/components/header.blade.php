@@ -3,12 +3,7 @@
         <img
             src="https://asset.inisiatif.id/logos/logo-izi-full-transparant.png"
             alt="Logo"
-            class="mr-4 w-24"
-        />
-        <img
-            src="https://asset.inisiatif.id/logos/logo-foz.png"
-            alt="Logo"
-            class="mr-4 w-20"
+            class="mr-4 w-32"
         />
     </div>
     <div>

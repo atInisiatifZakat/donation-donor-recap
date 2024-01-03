@@ -34,6 +34,12 @@ final class DonationRecapDetailBuilder
                 '=',
                 self::getDonationDetailTable().'.funding_type_id'
             )
+            ->join(
+                self::getFundingCategoryTable(),
+                self::getFundingCategoryTable().'.id',
+                '=',
+                self::getFundingTypeTable().'.funding_category_id'
+            )
             ->leftJoin(
                 self::getProgramTable(),
                 self::getProgramTable().'.id',
@@ -67,6 +73,8 @@ final class DonationRecapDetailBuilder
             self::getDonationDetailTable().'.id',
             DB::raw(self::getDonationTable().'.transaction_date as donation_transaction_date'),
             DB::raw(self::getDonationTable().'.identification_number as donation_identification_number'),
+            DB::raw(self::getFundingCategoryTable().'.id as donation_funding_category_id'),
+            DB::raw(self::getFundingCategoryTable().'.name as donation_funding_category_name'),
             DB::raw(self::getFundingTypeTable().'.name as donation_funding_type_name'),
             DB::raw(self::getProgramTable().'.name as donation_program_name'),
             DB::raw(self::getDonationDetailTable().'.amount as donation_amount'),

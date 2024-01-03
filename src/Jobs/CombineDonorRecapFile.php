@@ -54,7 +54,7 @@ final class CombineDonorRecapFile implements ShouldBeUnique, ShouldQueue
             Storage::disk(Recap::getDefaultFileDisk())->put($path, $newContent);
 
             $this->donor->update([
-                'result_disk' => 's3',
+                'result_disk' => Recap::getDefaultFileDisk(),
                 'result_file_path' => $path,
             ]);
 

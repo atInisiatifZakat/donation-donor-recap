@@ -47,6 +47,13 @@
             display: none;
         }
 
+        .confidential {
+            width: 110px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 5px;
+        }
+
         @media print {
             @page {
                 margin-top: .5cm;
@@ -86,9 +93,10 @@
 <div class="paper-a4">
     @include('recap::components.header')
 
-    <h2 class="text-xl font-bold text-center color-izi-green tracking-wide mb-4">
+    <h2 class="text-xl font-bold text-center color-izi-green tracking-wide mb-2">
         LAPORAN REKAPITULASI ZIS
     </h2>
+    <img alt="Confidential" src="https://asset.inisiatif.id/confidential.jpeg" class="confidential" />
 
     @include('recap::components.divider')
 

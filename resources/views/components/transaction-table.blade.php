@@ -13,7 +13,7 @@
     </tr>
     </thead>
     <tbody class="bg-white">
-    @foreach($items->splice(0, 6) as $item)
+    @foreach($items->splice(0, 5) as $item)
         <tr class="h-14">
             <td class="px-3 py-1 whitespace-nowrap border-b border-gray-200">
                 {{ $item->getTransactionDate()->format('d M Y') }}
@@ -34,7 +34,7 @@
         <td colspan="3" class="border-0"></td>
     </tr>
 
-    @foreach($items->splice(5) as $detail)
+    @foreach($items as $detail)
         <tr class="h-14">
             <td class="px-3 py-1 whitespace-nowrap border-b border-gray-200">
                 {{ $detail->getTransactionDate()->format('d M Y') }}
