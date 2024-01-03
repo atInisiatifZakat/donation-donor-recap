@@ -47,6 +47,8 @@ return new class extends Migration
             $table->date('donation_transaction_date');
 
             $table->string('donation_identification_number');
+            $table->string('donation_funding_category_id');
+            $table->string('donation_funding_category_name');
             $table->string('donation_funding_type_name');
             $table->string('donation_program_name')->nullable();
 
@@ -74,7 +76,7 @@ return new class extends Migration
                 ->constrained('donors')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('description');
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
 

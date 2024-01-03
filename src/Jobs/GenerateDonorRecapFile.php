@@ -46,7 +46,8 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
             $content = GeneratePdf::view('recap::recap', [
                 'donor' => $this->donor,
                 'recap' => $this->donationRecap,
-                'items' => $this->donationRecap->items()->get(),
+                'items' => $this->donationRecap->getItemCollection(),
+                'summaries' => $this->donationRecap->getCategoryItemsSummaries(),
             ])->base64pdf();
 
             if (Str::isJson($content)) {
@@ -56,7 +57,7 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
             Storage::disk(Recap::getDefaultFileDisk())->put($path, \base64_decode($content));
 
             $this->donor->update([
-                'disk' => 's3',
+                'disk' => Recap::getDefaultFileDisk(),
                 'file_path' => $path,
             ]);
 

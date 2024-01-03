@@ -11,6 +11,7 @@ final class FetchTemplateOption
 {
     public function handle(): Collection
     {
+        /** @var Collection */
         return DonationRecapTemplate::query()->where('is_active', true)->get();
     }
 }
