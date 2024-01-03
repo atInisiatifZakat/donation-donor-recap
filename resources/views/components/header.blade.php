@@ -11,6 +11,6 @@
             Lembaga Amil Zakat Nasional
         </p>
         <p class="text-gray-700 text-sm">Berdasarkan SK Kemenag RI</p>
-        <p class="text-gray-700 text-sm">No. 423 Tahun 2015</p>
+        <p class="text-gray-700 text-sm">No 950 Tahun 2020</p>
     </div>
 </div>
