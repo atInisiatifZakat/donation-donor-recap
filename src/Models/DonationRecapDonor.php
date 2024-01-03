@@ -7,6 +7,7 @@ namespace Inisiatif\DonationRecap\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class DonationRecapDonor extends Model
@@ -14,6 +15,11 @@ final class DonationRecapDonor extends Model
     use HasUuids;
 
     protected $guarded = [];
+
+    protected $appends = [
+        'file_url',
+        'result_file_url',
+    ];
 
     public function recap(): BelongsTo
     {
@@ -30,5 +36,48 @@ final class DonationRecapDonor extends Model
         $path = $this->getAttribute('file_path');
 
         return $disk->readStream($path);
+    }
+
+    public function getFileUrlAttribute(): ?string
+    {
+        return $this->getFileUrl();
+    }
+
+    public function getResultFileUrlAttribute(): ?string
+    {
+        return $this->getResultFileUrl();
+    }
+
+    public function getFileUrl(): ?string
+    {
+        /** @var string|null $path */
+        $path = $this->getAttribute('file_path');
+
+        return \is_null($path) ? null : $this->generateFileUrl($path);
+    }
+
+    public function getResultFileUrl(): ?string
+    {
+        /** @var string|null $path */
+        $path = $this->getAttribute('result_file_path');
+
+        return \is_null($path) ? null : $this->generateFileUrl($path);
+    }
+
+    protected function generateFileUrl(string $path): string
+    {
+        $baseUrl = Recap::getDefaultFileUrl();
+
+        if ($baseUrl) {
+            return $baseUrl.'/'.$path;
+        }
+
+        $disk = Storage::disk($this->getAttribute('disk'));
+
+        if ($disk->providesTemporaryUrls()) {
+            return $disk->temporaryUrl($path, now()->addMinutes(30));
+        }
+
+        return $disk->url($path);
     }
 }
