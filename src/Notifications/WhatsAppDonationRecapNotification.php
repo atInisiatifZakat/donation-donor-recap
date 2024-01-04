@@ -45,6 +45,8 @@ final class WhatsAppDonationRecapNotification extends Notification implements Qo
         $phone = $this->getPhoneNumber();
         $name = $this->donationRecapDonor->getAttribute('donor_name');
         $period = $this->donationRecap->getPeriodInString();
+
+        /** @var string $fileUrl */
         $fileUrl = $this->donationRecapDonor->getResultFileUrl();
 
         $receiver = new Receiver($phone, $name);
