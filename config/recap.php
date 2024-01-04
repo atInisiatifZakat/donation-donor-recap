@@ -12,6 +12,8 @@ return [
     'recording' => [
         'donor_table_name' => env('RECORDING_DONOR_TABLE_NAME', 'edonation.donors'),
 
+        'donor_phone_table_name' => env('RECORDING_DONOR_PHONE_TABLE_NAME', 'edonation.donor_phones'),
+
         'donation_table_name' => env('RECORDING_DONATION_TABLE_NAME', 'edonation.donations'),
 
         'donation_detail_table_name' => env('RECORDING_DONATION_DETAIL_TABLE_NAME', 'edonation.donation_details'),
@@ -48,5 +50,19 @@ return [
         'node' => env('RECAP_PUPPETEER_NODE_BINARY'),
 
         'paper_size_format' => env('RECAP_PUPPETEER_LETTER_SIZE', 'Letter'),
+    ],
+
+    'notification' => [
+        'whatsapp' => [
+            'channel_id' => env('RECAP_NOTIFICATION_WHATSAPP_CHANNEL', env('DONATION_QONTAK_CHANNEL_ID')),
+
+            'template_id' => env('RECAP_NOTIFICATION_WHATSAPP_TEMPLATE', '63777d87-173f-4fcb-906e-f50d91e0d04c'),
+        ],
+
+        'email' => [
+            'sender_name' => env('RECAP_NOTIFICATION_EMAIL_SENDER_NAME', 'Inisiatif Zakat Indonesia'),
+
+            'sender_address' => env('RECAP_NOTIFICATION_EMAIL_SENDER_ADDRESS', 'no-reply@izi.or.id'),
+        ],
     ],
 ];

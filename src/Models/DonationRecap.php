@@ -24,6 +24,7 @@ final class DonationRecap extends Model
         'state' => DonationRecapState::class,
         'start_at' => 'date',
         'end_at' => 'date',
+        'last_send_at' => 'datetime',
     ];
 
     public function template(): BelongsTo
@@ -69,6 +70,15 @@ final class DonationRecap extends Model
     public function getPeriodEndDate(): Carbon
     {
         return $this->getAttribute('end_at');
+    }
+
+    public function getPeriodInString(): string
+    {
+        return \sprintf(
+            '%s - %s',
+            $this->getPeriodStartDate()->format('d M Y'),
+            $this->getPeriodEndDate()->format('d M Y')
+        );
     }
 
     public function inState(DonationRecapState $new): bool

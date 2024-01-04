@@ -31,7 +31,6 @@ return new class extends Migration
             $table->unsignedInteger('count_total')->default(0);
             $table->unsignedInteger('count_progress')->default(0);
             $table->timestamp('last_send_at')->nullable();
-            $table->json('send_channels')->nullable();
             $table->string('state', 100);
             $table->timestamps();
         });
@@ -99,6 +98,9 @@ return new class extends Migration
             $table->string('file_path')->nullable();
             $table->string('result_disk')->nullable();
             $table->string('result_file_path')->nullable();
+            $table->timestamp('sms_sending_at')->nullable();
+            $table->timestamp('email_sending_at')->nullable();
+            $table->timestamp('whatsapp_sending_at')->nullable();
             $table->timestamps();
         });
     }

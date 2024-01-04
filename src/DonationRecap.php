@@ -7,17 +7,20 @@ namespace Inisiatif\DonationRecap;
 use Illuminate\Database\Eloquent\Model;
 use Inisiatif\DonationRecap\Models\Donor;
 use Inisiatif\DonationRecap\Models\Donation;
+use Inisiatif\DonationRecap\Models\DonorPhone;
 use Inisiatif\DonationRecap\Traits\HasTableName;
 use Inisiatif\DonationRecap\Models\DonationDetail;
 use Inisiatif\DonationRecap\Traits\HasQueueConfig;
 use Inisiatif\DonationRecap\DataTransfers\DonorData;
 use Inisiatif\DonationRecap\Traits\HasPuppeteerConfig;
 use Inisiatif\DonationRecap\Traits\HasFileStorageConfig;
+use Inisiatif\DonationRecap\Traits\HasNotificationConfig;
 use Inisiatif\DonationRecap\Resolvers\Contract\DonorResolver;
 
 final class DonationRecap
 {
     use HasFileStorageConfig;
+    use HasNotificationConfig;
     use HasPuppeteerConfig;
     use HasQueueConfig;
     use HasTableName;
@@ -26,6 +29,11 @@ final class DonationRecap
      * @var class-string<Model>
      */
     private static string $donorModel = Donor::class;
+
+    /**
+     * @var class-string<Model>
+     */
+    private static string $donorPhoneModel = DonorPhone::class;
 
     /**
      * @var class-string<Model>
@@ -48,6 +56,14 @@ final class DonationRecap
     public static function getDonorClassModel(): string
     {
         return self::$donorModel;
+    }
+
+    /**
+     * @return class-string<Model>
+     */
+    public static function getDonorPhoneClassModel(): string
+    {
+        return self::$donorPhoneModel;
     }
 
     /**

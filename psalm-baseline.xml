@@ -7,6 +7,11 @@
       <code>url</code>
     </UndefinedInterfaceMethod>
   </file>
+  <file src="src/Notifications/SmsDonationRecapNotification.php">
+    <PossiblyUndefinedMethod>
+      <code>render</code>
+    </PossiblyUndefinedMethod>
+  </file>
   <file src="src/Supports/DonationSummaries.php">
     <MissingTemplateParam>
       <code>DonationSummaries</code>

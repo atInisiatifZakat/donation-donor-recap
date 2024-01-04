@@ -12,6 +12,12 @@ trait HasTableName
         return \config('recap.recording.donor_table_name');
     }
 
+    public static function getDonorPhoneTable(): ?string
+    {
+        /** @var string|null */
+        return \config('recap.recording.donor_phone_table_name');
+    }
+
     public static function getDonationTable(): ?string
     {
         /** @var string|null */
