@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-final class FetchDonorPagination
+final class FetchDonationDonorRecapPagination
 {
     public function handle(DonationRecap $donationRecap, Request $request): LengthAwarePaginator
     {

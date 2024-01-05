@@ -7,7 +7,10 @@ namespace Inisiatif\DonationRecap\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Inisiatif\DonationRecap\Models\DonationRecap;
+use Inisiatif\DonationRecap\Actions\NewDonationRecap;
+use Inisiatif\DonationRecap\DataTransfers\NewDonationRecapData;
 use Inisiatif\DonationRecap\Actions\FetchDonationRecapPagination;
+use Inisiatif\DonationRecap\Http\Requests\NewDonationRecapRequest;
 
 final class DonationRecapController
 {
@@ -15,6 +18,19 @@ final class DonationRecapController
     {
         return JsonResource::collection(
             $donationRecap->handle($request)
+        );
+    }
+
+    public function store(NewDonationRecapRequest $request, NewDonationRecap $recap): JsonResource
+    {
+        $newRecap = $recap->handle(NewDonationRecapData::from([
+            ...$request->except(['start_at', 'end_at']),
+            'start_at' => $request->date('start_at'),
+            'end_at' => $request->date('end_at'),
+        ]));
+
+        return JsonResource::make(
+            $newRecap->loadMissing('template')
         );
     }
 

@@ -21,28 +21,25 @@ final class FetchDonationRecapPagination
             'template' => fn (Relation $relation) => $relation->select(['id', 'name']),
         ]);
 
-        return QueryBuilder::for($builder, $request)
-            ->allowedFilters([
-                AllowedFilter::exact('state', 'state'),
-                AllowedFilter::exact('template', 'template_id'),
-                AllowedFilter::callback('start', static function (Builder $query, $value, string $property): Builder {
-                    $date = CarbonImmutable::parse($value);
+        return QueryBuilder::for($builder, $request)->allowedFilters([
+            AllowedFilter::exact('state', 'state'),
+            AllowedFilter::exact('template', 'template_id'),
+            AllowedFilter::callback('start', static function (Builder $query, $value, string $property): Builder {
+                $date = CarbonImmutable::parse($value);
 
-                    return $query->where($property, '>=', $date->startOfDay());
-                }, 'start_at'),
-                AllowedFilter::callback('end', static function (Builder $query, $value, string $property): Builder {
-                    $date = CarbonImmutable::parse($value);
+                return $query->where($property, '>=', $date->startOfDay());
+            }, 'start_at'),
+            AllowedFilter::callback('end', static function (Builder $query, $value, string $property): Builder {
+                $date = CarbonImmutable::parse($value);
 
-                    return $query->where($property, '<=', $date->endOfDay());
-                }, 'end_at'),
-                AllowedFilter::callback('created', static function (Builder $query, $value, string $property): Builder {
-                    $date = CarbonImmutable::parse($value);
+                return $query->where($property, '<=', $date->endOfDay());
+            }, 'end_at'),
+            AllowedFilter::callback('created', static function (Builder $query, $value, string $property): Builder {
+                $date = CarbonImmutable::parse($value);
 
-                    return $query->whereBetween($property, [$date->startOfDay(), $date->endOfDay()]);
-                }, 'created_at'),
-                AllowedFilter::exact('donor', 'donors.donor_id'),
-            ])
-            ->paginate()
-            ->appends($request->all());
+                return $query->whereBetween($property, [$date->startOfDay(), $date->endOfDay()]);
+            }, 'created_at'),
+            AllowedFilter::exact('donor', 'donors.donor_id'),
+        ])->paginate()->appends($request->all());
     }
 }

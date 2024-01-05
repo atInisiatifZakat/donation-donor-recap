@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 final class Donor extends Model
 {
@@ -24,6 +25,18 @@ final class Donor extends Model
     public function getTable(): string
     {
         return Recap::getDonorTable() ?? parent::getTable();
+    }
+
+    public function recaps(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            DonationRecap::class,
+            DonationRecapDonor::class,
+            null,
+            'id',
+            null,
+            'donation_recap_id',
+        );
     }
 
     public function phone(): BelongsTo

@@ -20,7 +20,7 @@ final class DonorResolver implements Contract\DonorResolver
             $donorClass = DonationRecap::getDonorClassModel();
 
             /** @var Model|null */
-            return $donorClass::query()->find($id);
+            return $donorClass::query()->whereNull('merge_donor_id')->find($id);
         };
 
         $donor = $resolveDonor($id);
