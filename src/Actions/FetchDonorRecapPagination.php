@@ -27,13 +27,19 @@ final class FetchDonorRecapPagination
             AllowedFilter::callback('start', static function (Builder $query, $value, string $property): Builder {
                 $date = CarbonImmutable::parse($value);
 
-                return $query->where($property, '>=', $date->startOfDay());
-            }, 'recap.start_at'),
+                return $query->whereHas(
+                    'recap',
+                    fn (Builder $builder) => $builder->select('id')->where($property, '>=', $date->startOfDay())
+                );
+            }, 'start_at'),
             AllowedFilter::callback('end', static function (Builder $query, $value, string $property): Builder {
                 $date = CarbonImmutable::parse($value);
 
-                return $query->where($property, '<=', $date->endOfDay());
-            }, 'recap.end_at'),
+                return $query->whereHas(
+                    'recap',
+                    fn (Builder $builder) => $builder->select('id')->where($property, '>=', $date->startOfDay())
+                );
+            }, 'end_at'),
             AllowedFilter::callback('created', static function (Builder $query, $value, string $property): Builder {
                 $date = CarbonImmutable::parse($value);
 
