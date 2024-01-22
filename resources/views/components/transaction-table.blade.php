@@ -4,7 +4,7 @@
         <th class="rounded-l-sm bg-izi-green px-4 py-2 text-left text-xs font-bold tracking-wider">
             TANGGAL
         </th>
-        <th class="bg-izi-green px-4 py-2 text-left text-xs font-bold tracking-wider">
+        <th class="bg-izi-green px-4 py-2 text-left text-xs font-bold tracking-wider text-center">
             TRANSAKSI
         </th>
         <th class="rounded-r-sm bg-izi-green px-4 py-2 text-right text-xs font-bold tracking-wider">
@@ -13,6 +13,14 @@
     </tr>
     </thead>
     <tbody class="bg-white">
+    @if($items->isEmpty())
+       <tr>
+            <td colspan="3" class="px-3 py-12 whitespace-nowrap border-b border-gray-200">
+                <p class="text-center font-semibold text-lg text-gray-400">TIDAK ADA DATA</p>
+            </td>
+        </tr>
+    @endif
+
     @foreach($items->splice(0, 5) as $item)
         <tr class="h-14">
             <td class="px-3 py-1 whitespace-nowrap border-b border-gray-200">
@@ -28,11 +36,12 @@
                 Rp. {{ \number_format($item->getAttribute('donation_amount')) }}
             </td>
         </tr>
+        @if ($loop->last)
+            <tr class="page-break">
+                <td colspan="3" class="border-0"></td>
+            </tr>
+        @endif
     @endforeach
-
-    <tr class="page-break">
-        <td colspan="3" class="border-0"></td>
-    </tr>
 
     @foreach($items as $detail)
         <tr class="h-14">
