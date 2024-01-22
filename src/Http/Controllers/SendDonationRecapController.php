@@ -14,7 +14,7 @@ final class SendDonationRecapController
 {
     public function store(DonationRecap $recap): JsonResponse
     {
-        \abort_unless($recap->inState(DonationRecapState::combining), 404);
+        \abort_unless($recap->inState(DonationRecapState::combined), 400, 'Donation recap is not in combined state.');
 
         \dispatch(new SendingDonationRecapJob($recap));
 
