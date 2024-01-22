@@ -94,7 +94,7 @@
     @include('recap::components.header')
 
     <h2 class="text-xl font-bold text-center color-izi-green tracking-wide mb-2">
-        LAPORAN REKAPITULASI ZIS
+        LAPORAN REKAPITULASI ZISWAF
     </h2>
     <img alt="Confidential" src="https://asset.inisiatif.id/confidential.jpeg" class="confidential" />
 

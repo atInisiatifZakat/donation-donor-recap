@@ -45,6 +45,6 @@ final class FetchDonorRecapPagination
 
                 return $query->whereBetween($property, [$date->startOfDay(), $date->endOfDay()]);
             }, 'created_at'),
-        ])->paginate()->appends($request->all());
+        ])->orderBy('created_at', 'desc')->paginate()->appends($request->all());
     }
 }
