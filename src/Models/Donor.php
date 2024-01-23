@@ -42,7 +42,7 @@ final class Donor extends Model
 
     public function donations(): HasMany
     {
-        return $this->hasMany(Donation::class);
+        return $this->hasMany(Recap::getDonationClassModel());
     }
 
     public function phone(): BelongsTo
