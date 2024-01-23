@@ -16,7 +16,10 @@ final class FetchDonationDonorRecapPagination
 {
     public function handle(DonationRecap $donationRecap, Request $request): LengthAwarePaginator
     {
-        return QueryBuilder::for($donationRecap->donors(), $request)
+
+        $donationDonors = $donationRecap->donors()->with(['donor.branch', 'donor.partner', 'donor.employee']);
+
+        return QueryBuilder::for($donationDonors, $request)
             ->allowedFilters([
                 AllowedFilter::partial('name', 'donor_name'),
                 AllowedFilter::partial('identification_number', 'donor_identification_number'),

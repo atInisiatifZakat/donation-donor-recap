@@ -6,7 +6,10 @@ namespace Inisiatif\DonationRecap;
 
 use Illuminate\Database\Eloquent\Model;
 use Inisiatif\DonationRecap\Models\Donor;
+use Inisiatif\DonationRecap\Models\Branch;
+use Inisiatif\DonationRecap\Models\Partner;
 use Inisiatif\DonationRecap\Models\Donation;
+use Inisiatif\DonationRecap\Models\Employee;
 use Inisiatif\DonationRecap\Models\DonorPhone;
 use Inisiatif\DonationRecap\Traits\HasTableName;
 use Inisiatif\DonationRecap\Models\DonationDetail;
@@ -38,6 +41,21 @@ final class DonationRecap
     /**
      * @var class-string<Model>
      */
+    private static string $branchModel = Branch::class;
+
+    /**
+     * @var class-string<Model>
+     */
+    private static string $employeeModel = Employee::class;
+
+    /**
+     * @var class-string<Model>
+     */
+    private static string $partnerModel = Partner::class;
+
+    /**
+     * @var class-string<Model>
+     */
     private static string $donationModel = Donation::class;
 
     /**
@@ -64,6 +82,30 @@ final class DonationRecap
     public static function getDonorPhoneClassModel(): string
     {
         return self::$donorPhoneModel;
+    }
+
+    /**
+     * @return class-string<Model>
+     */
+    public static function getBranchClassModel(): string
+    {
+        return self::$branchModel;
+    }
+
+    /**
+     * @return class-string<Model>
+     */
+    public static function getEmployeeClassModel(): string
+    {
+        return self::$employeeModel;
+    }
+
+    /**
+     * @return class-string<Model>
+     */
+    public static function getPartnerClassModel(): string
+    {
+        return self::$partnerModel;
     }
 
     /**

@@ -39,6 +39,21 @@ final class Donor extends Model
         );
     }
 
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Recap::getBranchClassModel(), 'branch_id')->withoutGlobalScopes();
+    }
+
+    public function partner(): BelongsTo
+    {
+        return $this->belongsTo(Recap::getPartnerClassModel(), 'partner_id')->withoutGlobalScopes();
+    }
+
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Recap::getEmployeeClassModel(), 'employee_id')->withoutGlobalScopes();
+    }
+
     public function phone(): BelongsTo
     {
         return $this->belongsTo(Recap::getDonorPhoneClassModel(), 'donor_phone_id')->withoutGlobalScopes();
@@ -51,7 +66,7 @@ final class Donor extends Model
 
     public function sendSmsNotification(): bool
     {
-        return $this->isSupportedChannels('sms') && ! \is_null($this->getPhone());
+        return $this->isSupportedChannels('sms') && !\is_null($this->getPhone());
     }
 
     public function sendEmailNotification(): bool
