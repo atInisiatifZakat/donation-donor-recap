@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 final class Donor extends Model
@@ -37,6 +38,11 @@ final class Donor extends Model
             null,
             'donation_recap_id',
         );
+    }
+
+    public function donations(): HasMany
+    {
+        return $this->hasMany(Recap::getDonationClassModel());
     }
 
     public function branch(): BelongsTo
