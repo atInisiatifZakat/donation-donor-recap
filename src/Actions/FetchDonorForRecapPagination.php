@@ -12,7 +12,9 @@ use Inisiatif\DonationRecap\Models\Donor;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
+use Inisiatif\DonationRecap\Filters\HasDonationFilter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Inisiatif\DonationRecap\Filters\DoesntHaveDonationFilter;
 
 final class FetchDonorForRecapPagination
 {
@@ -34,6 +36,8 @@ final class FetchDonorForRecapPagination
             AllowedFilter::exact('partner', 'partner_id'),
             AllowedFilter::exact('volunteer', 'volunteer_id'),
             AllowedFilter::partial('phone', 'phone.number'),
+            AllowedFilter::custom('doesnt-have-donation', new DoesntHaveDonationFilter),
+            AllowedFilter::custom('has-donation', new HasDonationFilter),
         ])->when($request->input('q'), function (Builder $builder) use ($request): Builder {
             return $builder->where(static function (Builder $builder) use ($request): Builder {
                 $value = \mb_strtolower((string) $request->string('q', ''), 'UTF8');
@@ -55,6 +59,5 @@ final class FetchDonorForRecapPagination
                 ->whereDate('start_at', $recap->getAttribute('start_at'))
                 ->where('template_id', $recap->getAttribute('template_id'));
         })->whereNull('merge_donor_id')->paginate()->appends($request->all());
-
     }
 }
