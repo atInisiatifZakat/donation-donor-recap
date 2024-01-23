@@ -9,9 +9,9 @@ use InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 final class Donor extends Model
@@ -57,7 +57,7 @@ final class Donor extends Model
 
     public function sendSmsNotification(): bool
     {
-        return $this->isSupportedChannels('sms') && !\is_null($this->getPhone());
+        return $this->isSupportedChannels('sms') && ! \is_null($this->getPhone());
     }
 
     public function sendEmailNotification(): bool
