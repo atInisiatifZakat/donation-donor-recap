@@ -21,19 +21,19 @@ trait HasTableName
     public static function getBranchTable(): ?string
     {
         /** @var string|null */
-        return \config('recap.recording.donor_branch_table_name');
+        return \config('recap.recording.branch_table_name');
     }
 
     public static function getPartnerTable(): ?string
     {
         /** @var string|null */
-        return \config('recap.recording.donor_partner_table_name');
+        return \config('recap.recording.partner_table_name');
     }
 
     public static function getEmployeeTable(): ?string
     {
         /** @var string|null */
-        return \config('recap.recording.donor_employee_table_name');
+        return \config('recap.recording.employee_table_name');
     }
 
     public static function getDonationTable(): ?string

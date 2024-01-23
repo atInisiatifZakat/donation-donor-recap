@@ -14,11 +14,11 @@ return [
 
         'donor_phone_table_name' => env('RECORDING_DONOR_PHONE_TABLE_NAME', 'edonation.donor_phones'),
 
-        'donor_branch_table_name' => env('RECORDING_DONOR_BRANCH_TABLE_NAME', 'edonation.branches'),
+        'branch_table_name' => env('RECORDING_BRANCH_TABLE_NAME', 'edonation.branches'),
 
-        'donor_employee_table_name' => env('RECORDING_DONOR_EMPLOYEE_TABLE_NAME', 'edonation.employees'),
+        'employee_table_name' => env('RECORDING_EMPLOYEE_TABLE_NAME', 'edonation.employees'),
 
-        'donor_partner_table_name' => env('RECORDING_DONOR_PARTNER_TABLE_NAME', 'edonation.partners'),
+        'partner_table_name' => env('RECORDING_PARTNER_TABLE_NAME', 'edonation.partners'),
 
         'donation_table_name' => env('RECORDING_DONATION_TABLE_NAME', 'edonation.donations'),
 
