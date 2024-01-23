@@ -12,6 +12,12 @@ final class Donation extends Model
 {
     use HasUuids;
 
+    public const STATUS_PENDING = 'PENDING';
+
+    public const STATUS_VERIFIED = 'VERIFIED';
+
+    public const STATUS_CANCEL = 'CANCEL';
+
     public function getTable(): string
     {
         return Recap::getDonationTable() ?? parent::getTable();
