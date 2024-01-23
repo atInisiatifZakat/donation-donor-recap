@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
-use Inisiatif\DonationRecap\Models\Donation;
+use Inisiatif\DonationRecap\Enums\DonationStatus;
 use Spatie\QueryBuilder\Exceptions\InvalidFilterValue;
 
 /**
@@ -32,7 +32,7 @@ final class DoesntHaveDonationFilter implements Filter
 
                     return $builder
                         ->select('id')
-                        ->where('transaction_status', Donation::STATUS_VERIFIED)
+                        ->where('transaction_status', DonationStatus::verified)
                         ->whereBetween('created_at', [$startDate, $endDate]);
                 });
             }
