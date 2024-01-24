@@ -14,6 +14,7 @@ use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Filters\HasDonationFilter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Inisiatif\DonationRecap\Filters\DoesntHaveDonationFilter;
 
 final class FetchDonorForRecapPagination
@@ -23,7 +24,13 @@ final class FetchDonorForRecapPagination
         /** @var Donor $donor */
         $donor = app(Recap::getDonorClassModel());
 
-        return QueryBuilder::for(Recap::getDonorClassModel(), $request)->allowedFilters([
+        $builder = $donor->query()->with([
+            'branch' => fn (Relation $relation) => $relation->select(['id', 'name']),
+            'partner' => fn (Relation $relation) => $relation->select(['id', 'name']),
+            'employee' => fn (Relation $relation) => $relation->select(['id', 'name']),
+        ]);
+
+        return QueryBuilder::for($builder, $request)->allowedFilters([
             AllowedFilter::exact('id', 'id'),
             AllowedFilter::exact('number', 'identification_number'),
             AllowedFilter::exact('type'),

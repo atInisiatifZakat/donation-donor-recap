@@ -10,13 +10,21 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Inisiatif\DonationRecap\Models\DonationRecap;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 final class FetchDonationDonorRecapPagination
 {
     public function handle(DonationRecap $donationRecap, Request $request): LengthAwarePaginator
     {
-        return QueryBuilder::for($donationRecap->donors(), $request)
+
+        $builder = $donationRecap->donors()->with([
+            'donor.branch' => fn (Relation $relation) => $relation->select(['id', 'name']),
+            'donor.partner' => fn (Relation $relation) => $relation->select(['id', 'name']),
+            'donor.employee' => fn (Relation $relation) => $relation->select(['id', 'name']),
+        ]);
+
+        return QueryBuilder::for($builder, $request)
             ->allowedFilters([
                 AllowedFilter::partial('name', 'donor_name'),
                 AllowedFilter::partial('identification_number', 'donor_identification_number'),

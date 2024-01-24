@@ -45,6 +45,21 @@ final class Donor extends Model
         return $this->hasMany(Recap::getDonationClassModel());
     }
 
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Recap::getBranchClassModel(), 'branch_id')->withoutGlobalScopes();
+    }
+
+    public function partner(): BelongsTo
+    {
+        return $this->belongsTo(Recap::getPartnerClassModel(), 'partner_id')->withoutGlobalScopes();
+    }
+
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Recap::getEmployeeClassModel(), 'employee_id')->withoutGlobalScopes();
+    }
+
     public function phone(): BelongsTo
     {
         return $this->belongsTo(Recap::getDonorPhoneClassModel(), 'donor_phone_id')->withoutGlobalScopes();

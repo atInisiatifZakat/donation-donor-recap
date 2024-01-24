@@ -14,6 +14,12 @@ return [
 
         'donor_phone_table_name' => env('RECORDING_DONOR_PHONE_TABLE_NAME', 'edonation.donor_phones'),
 
+        'branch_table_name' => env('RECORDING_BRANCH_TABLE_NAME', 'edonation.branches'),
+
+        'employee_table_name' => env('RECORDING_EMPLOYEE_TABLE_NAME', 'edonation.employees'),
+
+        'partner_table_name' => env('RECORDING_PARTNER_TABLE_NAME', 'edonation.partners'),
+
         'donation_table_name' => env('RECORDING_DONATION_TABLE_NAME', 'edonation.donations'),
 
         'donation_detail_table_name' => env('RECORDING_DONATION_DETAIL_TABLE_NAME', 'edonation.donation_details'),
