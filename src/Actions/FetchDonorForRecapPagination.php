@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Inisiatif\DonationRecap\Models\Donor;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Filters\HasDonationFilter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Inisiatif\DonationRecap\Filters\DoesntHaveDonationFilter;
 
 final class FetchDonorForRecapPagination
