@@ -94,6 +94,7 @@ return new class extends Migration
             $table->string('donor_phone_number', 100)->nullable();
             $table->string('donor_tax_number', 100)->nullable();
             $table->text('donor_address')->nullable();
+            $table->string('state', 100)->nullable();
             $table->string('disk', 20)->nullable();
             $table->string('file_path')->nullable();
             $table->string('result_disk')->nullable();

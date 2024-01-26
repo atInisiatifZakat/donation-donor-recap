@@ -26,6 +26,10 @@ final class IncreaseProgressDonationRecap implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
+        if ($this->donationRecap->isLastRecordProcessed()) {
+            $this->donationRecap->state(DonationRecapState::done);
+        }
+
         $this->donationRecap->recordHistory('Update progress pembuatan rekap donasi');
 
         DonationRecap::query()

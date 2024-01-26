@@ -6,6 +6,7 @@ namespace Inisiatif\DonationRecap\Actions;
 
 use Illuminate\Support\Facades\DB;
 use Inisiatif\DonationRecap\Models\DonationRecap;
+use Inisiatif\DonationRecap\Enums\ProcessingState;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Jobs\ProcessDonationRecap;
 use Inisiatif\DonationRecap\DataTransfers\NewOneDonorRecapData;
@@ -23,9 +24,10 @@ final class NewOneDonorRecap
                 'state' => DonationRecapState::new,
             ]);
 
-            $donationRecap->donors()->create(
-                $data->except('templateId', 'startAt', 'endAt')->toArray(),
-            );
+            $donationRecap->donors()->create([
+                ...$data->except('templateId', 'startAt', 'endAt')->toArray(),
+                'state' => ProcessingState::new,
+            ]);
 
             return $donationRecap;
         });

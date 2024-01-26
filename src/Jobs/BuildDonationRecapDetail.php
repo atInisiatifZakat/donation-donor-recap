@@ -30,15 +30,21 @@ final class BuildDonationRecapDetail implements ShouldBeUnique, ShouldQueue
     public function handle(DonationRecapDetailBuilder $builder): void
     {
         if ($this->donationRecap->inState(DonationRecapState::new)) {
-            $this->donationRecap->state(DonationRecapState::collecting);
+            // TODO : Update `DonationRecapDonor` to `collecting`
 
             $builder->buildFor($this->donationRecap, $this->donor);
 
-            $this->donationRecap->state(DonationRecapState::collected);
+            // TODO : Update `DonationRecapDonor` to `collected`
 
             $this->donationRecap->recordHistory(
                 \sprintf('Mengambil detail donasi untuk %s', $this->donor->getAttribute('donor_name')),
                 $this->donor->getAttribute('donor_id')
+            );
+
+            $this->donationRecap->state(
+                $this->donationRecap->isLastRecordProcessed() ?
+                    DonationRecapState::processed :
+                    DonationRecapState::processing
             );
         }
     }

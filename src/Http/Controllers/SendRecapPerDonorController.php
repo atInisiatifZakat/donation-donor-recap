@@ -16,6 +16,8 @@ final class SendRecapPerDonorController
     public function store(DonationRecapDonor $donor, SendRecapPerDonor $sendRecapPerDonor): JsonResponse
     {
         try {
+            // TODO : Tambah validasi hanya untuk `SendRecapPerDonor` dengan state `combined`
+
             $sendRecapPerDonor->handle($donor);
 
             return new JsonResponse(null, Response::HTTP_NO_CONTENT);

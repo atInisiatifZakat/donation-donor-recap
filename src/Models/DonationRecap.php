@@ -88,6 +88,11 @@ final class DonationRecap extends Model
         return $state->value === $new->value;
     }
 
+    public function isLastRecordProcessed(): bool
+    {
+        return $this->getAttribute('count_total') === ($this->getAttribute('count_progress') + 1);
+    }
+
     public function getItemCollection(): Collection
     {
         return $this->items()->oldest('donation_transaction_date')->get();

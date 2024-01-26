@@ -33,13 +33,13 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
-        if ($this->donationRecap->inState(DonationRecapState::collected)) {
+        if ($this->donationRecap->inState(DonationRecapState::new)) {
             $this->donationRecap->recordHistory(
                 \sprintf('Membuat file rekap donasi untuk %s', $this->donor->getAttribute('donor_name')),
                 $this->donor->getAttribute('donor_id')
             );
 
-            $this->donationRecap->state(DonationRecapState::generating);
+            // TODO : Update `DonationRecapDonor` to `generating`
 
             $path = \sprintf('%s/%s/%s.pdf', Recap::getFileGeneratedBasePath(), now()->year, Str::random(64));
 
@@ -61,7 +61,7 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
                 'file_path' => $path,
             ]);
 
-            $this->donationRecap->state(DonationRecapState::generated);
+            // TODO : Update `DonationRecapDonor` to `generated`
         }
     }
 

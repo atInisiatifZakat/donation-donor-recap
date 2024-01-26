@@ -8,6 +8,7 @@ use FromHome\Kutt\KuttClient;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use FromHome\Kutt\Input\CreateShortLinkInput;
+use Inisiatif\DonationRecap\Enums\ProcessingState;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,10 @@ final class DonationRecapDonor extends Model
     use HasUuids;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'state' => ProcessingState::class,
+    ];
 
     protected $appends = [
         'file_url',

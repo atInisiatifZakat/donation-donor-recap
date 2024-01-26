@@ -33,12 +33,12 @@ final class CombineDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
-        if ($this->donationRecap->inState(DonationRecapState::generated)) {
+        if ($this->donationRecap->inState(DonationRecapState::new)) {
             $this->donationRecap->recordHistory(
                 \sprintf('Menggabungkan file rekap dengan template untuk %s', $this->donor->getAttribute('donor_name')),
                 $this->donor->getAttribute('donor_id'));
 
-            $this->donationRecap->state(DonationRecapState::combining);
+            // TODO : Update `DonationRecapDonor` to `combining`
 
             /** @var DonationRecapTemplate $template */
             $template = $this->donationRecap->template()->first();
@@ -58,7 +58,7 @@ final class CombineDonorRecapFile implements ShouldBeUnique, ShouldQueue
                 'result_file_path' => $path,
             ]);
 
-            $this->donationRecap->state(DonationRecapState::combined);
+            // TODO : Update `DonationRecapDonor` to `combined`
         }
     }
 
