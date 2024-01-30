@@ -14,7 +14,7 @@ final class SendDonationRecapController
 {
     public function store(DonationRecap $recap): JsonResponse
     {
-        \abort_unless($recap->inState(DonationRecapState::processing), 404);
+        \abort_unless($recap->inState(DonationRecapState::done), 404);
 
         \dispatch(new SendingDonationRecapJob($recap));
 
