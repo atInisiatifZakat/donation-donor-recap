@@ -17,6 +17,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
+use Inisiatif\DonationRecap\Enums\ProcessingState;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 
 final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
@@ -39,7 +40,7 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
                 $this->donor->getAttribute('donor_id')
             );
 
-            // TODO : Update `DonationRecapDonor` to `generating`
+            $this->donor->state(ProcessingState::generating);
 
             $path = \sprintf('%s/%s/%s.pdf', Recap::getFileGeneratedBasePath(), now()->year, Str::random(64));
 
@@ -61,13 +62,13 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
                 'file_path' => $path,
             ]);
 
-            // TODO : Update `DonationRecapDonor` to `generated`
+            $this->donor->state(ProcessingState::generated);
         }
     }
 
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey().'|'.$this->donor->getKey();
+        return $this->donationRecap->getKey() . '|' . $this->donor->getKey();
     }
 
     public function failed(Throwable $exception): void

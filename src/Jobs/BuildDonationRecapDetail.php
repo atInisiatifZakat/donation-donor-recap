@@ -14,6 +14,7 @@ use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 use Inisiatif\DonationRecap\Builders\DonationRecapDetailBuilder;
+use Inisiatif\DonationRecap\Enums\ProcessingState;
 
 final class BuildDonationRecapDetail implements ShouldBeUnique, ShouldQueue
 {
@@ -30,28 +31,22 @@ final class BuildDonationRecapDetail implements ShouldBeUnique, ShouldQueue
     public function handle(DonationRecapDetailBuilder $builder): void
     {
         if ($this->donationRecap->inState(DonationRecapState::new)) {
-            // TODO : Update `DonationRecapDonor` to `collecting`
+            $this->donor->state(ProcessingState::collecting);
 
             $builder->buildFor($this->donationRecap, $this->donor);
 
-            // TODO : Update `DonationRecapDonor` to `collected`
+            $this->donor->state(ProcessingState::collected);
 
             $this->donationRecap->recordHistory(
                 \sprintf('Mengambil detail donasi untuk %s', $this->donor->getAttribute('donor_name')),
                 $this->donor->getAttribute('donor_id')
-            );
-
-            $this->donationRecap->state(
-                $this->donationRecap->isLastRecordProcessed() ?
-                    DonationRecapState::processed :
-                    DonationRecapState::processing
             );
         }
     }
 
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey().'|'.$this->donor->getKey();
+        return $this->donationRecap->getKey() . '|' . $this->donor->getKey();
     }
 
     public function failed(Throwable $exception): void
