@@ -61,7 +61,7 @@ final class FetchDonorForRecapPagination
             });
         })->whereDoesntHave('recaps', function (Builder $builder) use ($recap): Builder {
             return $builder->select('donation_recaps.id')
-                ->whereNot('state', DonationRecapState::failure)
+                ->whereNot('donation_recaps.state', DonationRecapState::failure)
                 ->whereDate('end_at', $recap->getAttribute('end_at'))
                 ->whereDate('start_at', $recap->getAttribute('start_at'))
                 ->where('template_id', $recap->getAttribute('template_id'));
