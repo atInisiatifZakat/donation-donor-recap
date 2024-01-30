@@ -38,6 +38,20 @@ final class DonationRecapDonor extends Model
         return $this->belongsTo(Recap::getDonorClassModel());
     }
 
+    public function inState(ProcessingState $new): bool
+    {
+        $state = $this->getAttribute('state');
+
+        return $state->value === $new->value;
+    }
+
+    public function state(ProcessingState $state): self
+    {
+        $this->update(['state' => $state]);
+
+        return $this;
+    }
+
     /**
      * @return resource|null
      */
@@ -97,7 +111,7 @@ final class DonationRecapDonor extends Model
         $baseUrl = Recap::getDefaultFileUrl();
 
         if ($baseUrl) {
-            return $baseUrl.'/'.$path;
+            return $baseUrl . '/' . $path;
         }
 
         $disk = Storage::disk($this->getAttribute('disk'));
