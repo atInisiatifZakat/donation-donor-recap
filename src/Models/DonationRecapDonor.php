@@ -111,7 +111,7 @@ final class DonationRecapDonor extends Model
         $baseUrl = Recap::getDefaultFileUrl();
 
         if ($baseUrl) {
-            return $baseUrl . '/' . $path;
+            return $baseUrl.'/'.$path;
         }
 
         $disk = Storage::disk($this->getAttribute('disk'));
