@@ -8,6 +8,7 @@ use FromHome\Kutt\KuttClient;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use FromHome\Kutt\Input\CreateShortLinkInput;
+use Inisiatif\DonationRecap\Enums\ProcessingState;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,6 +18,10 @@ final class DonationRecapDonor extends Model
     use HasUuids;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'state' => ProcessingState::class,
+    ];
 
     protected $appends = [
         'file_url',
@@ -31,6 +36,20 @@ final class DonationRecapDonor extends Model
     public function donor(): BelongsTo
     {
         return $this->belongsTo(Recap::getDonorClassModel());
+    }
+
+    public function inState(ProcessingState $new): bool
+    {
+        $state = $this->getAttribute('state');
+
+        return $state->value === $new->value;
+    }
+
+    public function state(ProcessingState $state): self
+    {
+        $this->update(['state' => $state]);
+
+        return $this;
     }
 
     /**
@@ -92,7 +111,7 @@ final class DonationRecapDonor extends Model
         $baseUrl = Recap::getDefaultFileUrl();
 
         if ($baseUrl) {
-            return $baseUrl.'/'.$path;
+            return $baseUrl . '/' . $path;
         }
 
         $disk = Storage::disk($this->getAttribute('disk'));

@@ -16,6 +16,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
+use Inisiatif\DonationRecap\Enums\ProcessingState;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 use Inisiatif\DonationRecap\Models\DonationRecapTemplate;
 
@@ -33,12 +34,13 @@ final class CombineDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
-        if ($this->donationRecap->inState(DonationRecapState::generated)) {
+        if ($this->donationRecap->inState(DonationRecapState::new)) {
             $this->donationRecap->recordHistory(
                 \sprintf('Menggabungkan file rekap dengan template untuk %s', $this->donor->getAttribute('donor_name')),
-                $this->donor->getAttribute('donor_id'));
+                $this->donor->getAttribute('donor_id')
+            );
 
-            $this->donationRecap->state(DonationRecapState::combining);
+            $this->donor->state(ProcessingState::combining);
 
             /** @var DonationRecapTemplate $template */
             $template = $this->donationRecap->template()->first();
@@ -58,13 +60,13 @@ final class CombineDonorRecapFile implements ShouldBeUnique, ShouldQueue
                 'result_file_path' => $path,
             ]);
 
-            $this->donationRecap->state(DonationRecapState::combined);
+            $this->donor->state(ProcessingState::combined);
         }
     }
 
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey().'|'.$this->donor->getKey();
+        return $this->donationRecap->getKey() . '|' . $this->donor->getKey();
     }
 
     public function failed(Throwable $exception): void

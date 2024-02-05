@@ -17,6 +17,7 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
+use Inisiatif\DonationRecap\Enums\ProcessingState;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 
 final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
@@ -33,13 +34,13 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
-        if ($this->donationRecap->inState(DonationRecapState::collected)) {
+        if ($this->donationRecap->inState(DonationRecapState::new)) {
             $this->donationRecap->recordHistory(
                 \sprintf('Membuat file rekap donasi untuk %s', $this->donor->getAttribute('donor_name')),
                 $this->donor->getAttribute('donor_id')
             );
 
-            $this->donationRecap->state(DonationRecapState::generating);
+            $this->donor->state(ProcessingState::generating);
 
             $path = \sprintf('%s/%s/%s.pdf', Recap::getFileGeneratedBasePath(), now()->year, Str::random(64));
 
@@ -61,13 +62,13 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
                 'file_path' => $path,
             ]);
 
-            $this->donationRecap->state(DonationRecapState::generated);
+            $this->donor->state(ProcessingState::generated);
         }
     }
 
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey().'|'.$this->donor->getKey();
+        return $this->donationRecap->getKey() . '|' . $this->donor->getKey();
     }
 
     public function failed(Throwable $exception): void

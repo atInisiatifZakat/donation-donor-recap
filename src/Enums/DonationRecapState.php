@@ -7,18 +7,8 @@ namespace Inisiatif\DonationRecap\Enums;
 enum DonationRecapState: string
 {
     case new = 'new';
-
+    case processing = 'processing';
+    case processed = 'processed';
+    case done = 'done';
     case failure = 'failure';
-
-    case collecting = 'collecting';
-
-    case collected = 'collected';
-
-    case generating = 'generating';
-
-    case generated = 'generated';
-
-    case combining = 'combining';
-
-    case combined = 'combined';
 }

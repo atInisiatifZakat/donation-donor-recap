@@ -7,6 +7,7 @@ namespace Inisiatif\DonationRecap\Actions;
 use Illuminate\Support\Facades\DB;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Resolvers\DonorResolver;
+use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 use Inisiatif\DonationRecap\Exceptions\CannotAttachDonor;
 use Inisiatif\DonationRecap\Supports\RecapDonorAttachValidation;
@@ -29,9 +30,10 @@ final class AttachDonorDonationRecap
             $donorData = $this->donorResolver->resolve($donorId);
 
             /** @var DonationRecapDonor $donor */
-            $donor = $recap->donors()->create(
-                $donorData->toArray()
-            );
+            $donor = $recap->donors()->create([
+                ...$donorData->toArray(),
+                'state' => DonationRecapState::new,
+            ]);
 
             $donor->recap()->increment('count_total');
         });
