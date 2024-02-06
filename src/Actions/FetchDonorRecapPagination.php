@@ -22,7 +22,7 @@ final class FetchDonorRecapPagination
         ])->where('donor_id', $donorId);
 
         return QueryBuilder::for($builder, $request)->allowedFilters([
-            AllowedFilter::exact('state', 'recap.state'),
+            AllowedFilter::exact('state', 'donation_recap_donors.state'),
             AllowedFilter::exact('template', 'recap.template_id'),
             AllowedFilter::callback('start', static function (Builder $query, $value, string $property): Builder {
                 $date = CarbonImmutable::parse($value);
