@@ -37,12 +37,13 @@
                     Rp. {{ \number_format($item->getAttribute('donation_amount')) }}
                 </td>
             </tr>
-            @if ($loop->last)
-                <tr class="page-break">
-                    <td colspan="3" class="border-0"></td>
-                </tr>
-            @endif
         @endforeach
+    @endif
+
+    @if ($items->isNotEmpty())
+        <tr class="page-break">
+            <td colspan="3" class="border-0"></td>
+        </tr>
     @endif
 
     @if($items->isNotEmpty())
