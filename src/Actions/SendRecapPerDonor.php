@@ -26,7 +26,7 @@ final class SendRecapPerDonor
         \dispatch(new SendingRecapPerDonor($recap, $donor));
 
         $recap->recordHistory(
-            'Memproses pengiriman rekap donasi a/n ' . $donor->getAttribute('donor_name'),
+            'Memproses pengiriman rekap donasi a/n '.$donor->getAttribute('donor_name'),
             $donor->getAttribute('donor_id')
         );
     }
