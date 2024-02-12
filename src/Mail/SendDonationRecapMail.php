@@ -47,7 +47,7 @@ final class SendDonationRecapMail extends Mailable
 
     public function attachments(): array
     {
-        $fileName = 'Rekapitulasi Transaksi ZISWAF an '.$this->recapDonor->getAttribute('donor_name');
+        $fileName = 'Rekapitulasi Transaksi ZISWAF an '.$this->recapDonor->getAttribute('donor_name').'.pdf';
 
         return [
             Attachment::fromStorageDisk(
