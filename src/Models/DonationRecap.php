@@ -93,14 +93,14 @@ final class DonationRecap extends Model
         return $this->getAttribute('count_total') === ($this->getAttribute('count_progress') + 1);
     }
 
-    public function getItemCollection(): Collection
+    public function getItemCollection(string $donorId): Collection
     {
-        return $this->items()->oldest('donation_transaction_date')->get();
+        return $this->items()->where('donor_id', $donorId)->oldest('donation_transaction_date')->get();
     }
 
-    public function getCategoryItemsSummaries(): DonationSummaries
+    public function getCategoryItemsSummaries(string $donorId): DonationSummaries
     {
-        $collection = $this->items()->select([
+        $collection = $this->items()->where('donor_id', $donorId)->select([
             DB::raw('donation_funding_category_id as category_id'),
             DB::raw('donation_funding_category_name as category'),
             DB::raw('sum(donation_amount) as donation_amount'),

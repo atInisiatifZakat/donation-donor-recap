@@ -44,11 +44,12 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
             $path = \sprintf('%s/%s/%s.pdf', Recap::getFileGeneratedBasePath(), now()->year, Str::random(64));
 
+            $donorId = $this->donor->getAttribute('donor_id');
             $content = GeneratePdf::view('recap::recap', [
                 'donor' => $this->donor,
                 'recap' => $this->donationRecap,
-                'items' => $this->donationRecap->getItemCollection(),
-                'summaries' => $this->donationRecap->getCategoryItemsSummaries(),
+                'items' => $this->donationRecap->getItemCollection($donorId),
+                'summaries' => $this->donationRecap->getCategoryItemsSummaries($donorId),
             ])->base64pdf();
 
             if (Str::isJson($content)) {
@@ -68,7 +69,7 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey().'|'.$this->donor->getKey();
+        return $this->donationRecap->getKey() . '|' . $this->donor->getKey();
     }
 
     public function failed(Throwable $exception): void
