@@ -22,18 +22,18 @@
     @endif
 
     @if($items->isNotEmpty())
-        @foreach($items->splice(0, 5) as $item)
+        @foreach($items->splice(0, 7) as $item)
             <tr class="h-14">
-                <td class="px-3 py-1 whitespace-nowrap border-b border-gray-200">
+                <td class="px-3 py-1 whitespace-nowrap {{ $loop->last ? '' : 'border-b' }} border-gray-200">
                     {{ $item->getTransactionDate()->format('d M Y') }}
                 </td>
-                <td class="px-3 py-1 whitespace-normal border-b border-gray-200">
+                <td class="px-3 py-1 whitespace-normal {{ $loop->last ? '' : 'border-b' }} border-gray-200">
                     <p>{{ $item->getAttribute('donation_funding_type_name') }}</p>
                     <p class="text-gray-600 text-sm">
                         {{ $item->getAttribute('donation_program_name') }}
                     </p>
                 </td>
-                <td class="px-3 py-1 whitespace-nowrap text-right border-b border-gray-200">
+                <td class="px-3 py-1 whitespace-nowrap text-right {{ $loop->last ? '' : 'border-b' }} border-gray-200">
                     Rp. {{ \number_format($item->getAttribute('donation_amount')) }}
                 </td>
             </tr>
@@ -62,7 +62,7 @@
                     Rp. {{ \number_format($detail->getAttribute('donation_amount')) }}
                 </td>
             </tr>
-            @if ($loop->iteration % 15 === 0)
+            @if ($loop->iteration % 15 === 0 && !$loop->last)
                 <tr class="page-break">
                     <td colspan="3" class="border-0"></td>
                 </tr>
