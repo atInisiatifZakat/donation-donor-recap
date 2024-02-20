@@ -33,7 +33,7 @@ final class DoesntHaveDonationFilter implements Filter
                     return $builder
                         ->select('id')
                         ->where('transaction_status', DonationStatus::verified->value)
-                        ->whereBetween('created_at', [$startDate, $endDate]);
+                        ->whereBetween('transaction_date', [$startDate, $endDate]);
                 });
             }
         } catch (\Throwable $exception) {
