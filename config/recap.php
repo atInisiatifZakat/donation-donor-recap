@@ -30,7 +30,7 @@ return [
 
         'donation_program_table_name' => env('RECORDING_PROGRAM_TABLE_NAME', 'edonation.programs'),
 
-        'default_donor_id' => env('RECORDING_DEFAULT_DONOR_ID'),
+        'default_donor_id' => env('RECORDING_DEFAULT_DONOR_ID', '60596e4c-d105-4225-9c39-6c5917596c58'),
     ],
 
     'file' => [
