@@ -65,6 +65,7 @@ final class FetchDonorForRecapPagination
                 ->whereDate('end_at', $recap->getAttribute('end_at'))
                 ->whereDate('start_at', $recap->getAttribute('start_at'))
                 ->where('template_id', $recap->getAttribute('template_id'));
-        })->whereNull('merge_donor_id')->paginate()->appends($request->all());
+        })->whereNull('merge_donor_id')->where('id', '!=', \config('recap.recording.default_donor_id'))
+            ->paginate()->appends($request->all());
     }
 }
