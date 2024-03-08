@@ -25,7 +25,8 @@
         @foreach($items->splice(0, 7) as $item)
             <tr class="h-14">
                 <td class="px-3 py-1 whitespace-nowrap {{ $loop->last ? '' : 'border-b' }} border-gray-200">
-                    {{ $item->getTransactionDate()->format('d M Y') }}
+                    <p>{{ $item->getTransactionDate()->format('d M Y') }}</p>
+                    <p class="text-gray-500 text-xs">{{ $item->getAttribute('donation_identification_number')}}</p>
                 </td>
                 <td class="px-3 py-1 whitespace-normal {{ $loop->last ? '' : 'border-b' }} border-gray-200">
                     <p>{{ $item->getAttribute('donation_funding_type_name') }}</p>
@@ -50,7 +51,8 @@
         @foreach($items as $item)
             <tr class="h-14">
                 <td class="px-3 py-1 whitespace-nowrap border-b border-gray-200">
-                    {{ $item->getTransactionDate()->format('d M Y') }}
+                    <p>{{ $item->getTransactionDate()->format('d M Y') }}</p>
+                    <p class="text-gray-500 text-xs">{{ $item->getAttribute('donation_identification_number')}}</p>
                 </td>
                 <td class="px-3 py-1 whitespace-normal border-b border-gray-200">
                     <p>{{ $item->getAttribute('donation_funding_type_name') }}</p>
