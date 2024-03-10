@@ -4,20 +4,47 @@ declare(strict_types=1);
 
 namespace Inisiatif\DonationRecap\Jobs;
 
+use Throwable;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
 
-final class CheckDonationRecapProgress
+final class CheckDonationRecapProgress implements ShouldBeUnique, ShouldQueue
 {
-    public function handle(DonationRecap $recap): void
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
+
+    public function __construct(
+        public readonly DonationRecap $donationRecap,
+    ) {
+    }
+
+    public function handle(): void
     {
-        $recap->refresh();
+        $this->donationRecap->refresh();
 
-        $countTotal = $recap->getAttribute('count_total');
-        $countProgress = $recap->getAttribute('count_progress');
+        $countTotal = $this->donationRecap->getAttribute('count_total');
+        $countProgress = $this->donationRecap->getAttribute('count_progress');
 
-        if ($countTotal === $countProgress && !$recap->inState(DonationRecapState::done)) {
-            $recap->state(DonationRecapState::done);
+        if ($countTotal === $countProgress && !$this->donationRecap->inState(DonationRecapState::done)) {
+            $this->donationRecap->state(DonationRecapState::done);
         }
+    }
+
+    public function uniqueId(): string
+    {
+        return $this->donationRecap->getKey();
+    }
+
+    public function failed(Throwable $exception): void
+    {
+        $this->donationRecap->state(DonationRecapState::failure);
+
+        \report($exception);
     }
 }
