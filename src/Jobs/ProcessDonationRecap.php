@@ -34,6 +34,7 @@ final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
             new GenerateDonorRecapFile($this->donationRecap, $donor),
             new CombineDonorRecapFile($this->donationRecap, $donor),
             new IncreaseProgressDonationRecap($this->donationRecap),
+            new CheckDonationRecapProgress($this->donationRecap),
         ]));
     }
 
