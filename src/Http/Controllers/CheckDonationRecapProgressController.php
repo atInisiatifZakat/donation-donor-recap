@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Inisiatif\DonationRecap\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
-use Inisiatif\DonationRecap\DonationRecap;
+use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Jobs\CheckDonationRecapProgress;
 
 final class CheckDonationRecapProgressController
