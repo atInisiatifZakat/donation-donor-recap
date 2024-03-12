@@ -47,19 +47,19 @@
     @endif
 
     @if($items->isNotEmpty())
-        @foreach($items as $detail)
+        @foreach($items as $item)
             <tr class="h-14">
                 <td class="px-3 py-1 whitespace-nowrap border-b border-gray-200">
-                    {{ $detail->getTransactionDate()->format('d M Y') }}
+                    {{ $item->getTransactionDate()->format('d M Y') }}
                 </td>
                 <td class="px-3 py-1 whitespace-normal border-b border-gray-200">
                     <p>{{ $item->getAttribute('donation_funding_type_name') }}</p>
                     <p class="text-gray-600 text-sm">
-                        {{ $detail->getAttribute('donation_program_name') }}
+                        {{ $item->getAttribute('donation_program_name') }}
                     </p>
                 </td>
                 <td class="px-3 py-1 whitespace-nowrap text-right border-b border-gray-200">
-                    Rp. {{ \number_format($detail->getAttribute('donation_amount')) }}
+                    Rp. {{ \number_format($item->getAttribute('donation_amount')) }}
                 </td>
             </tr>
             @if ($loop->iteration % 15 === 0 && !$loop->last)
