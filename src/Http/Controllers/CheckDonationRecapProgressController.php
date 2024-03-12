@@ -12,7 +12,7 @@ final class CheckDonationRecapProgressController
 {
     public function store(DonationRecap $recap): JsonResponse
     {
-        dispatch(new CheckDonationRecapProgress($recap));
+        dispatch_sync(new CheckDonationRecapProgress($recap));
 
         return new JsonResponse(null, 204);
     }
