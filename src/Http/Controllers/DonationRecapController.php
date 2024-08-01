@@ -23,8 +23,11 @@ final class DonationRecapController
 
     public function store(NewDonationRecapRequest $request, NewDonationRecap $recap): JsonResource
     {
+        $user = $request->user();
+
         $newRecap = $recap->handle(NewDonationRecapData::from([
             ...$request->except(['start_at', 'end_at']),
+            'employee_id' => $user->getAttribute('employee_id'),
             'start_at' => $request->date('start_at'),
             'end_at' => $request->date('end_at'),
         ]));
