@@ -8,10 +8,12 @@ use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Inisiatif\DonationRecap\Supports\DonationSummaries;
 
 final class DonationRecap extends Model
@@ -30,6 +32,11 @@ final class DonationRecap extends Model
     public function template(): BelongsTo
     {
         return $this->belongsTo(DonationRecapTemplate::class);
+    }
+
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Recap::getEmployeeClassModel());
     }
 
     public function items(): HasMany
