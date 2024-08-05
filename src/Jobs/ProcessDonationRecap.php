@@ -36,6 +36,8 @@ final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
             new IncreaseProgressDonationRecap($this->donationRecap),
             new CheckDonationRecapProgress($this->donationRecap),
         ]));
+
+        \dispatch(new SendingRecapStatusJob($this->donationRecap));
     }
 
     public function uniqueId(): string

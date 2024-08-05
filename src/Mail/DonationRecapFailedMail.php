@@ -5,19 +5,16 @@ declare(strict_types=1);
 namespace Inisiatif\DonationRecap\Mail;
 
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Attachment;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
-use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 
-final class SendDonationRecapMail extends Mailable
+final class DonationRecapFailedMail extends Mailable
 {
     public function __construct(
         private readonly DonationRecap $donationRecap,
-        private readonly DonationRecapDonor $recapDonor,
     ) {
     }
 
@@ -25,35 +22,26 @@ final class SendDonationRecapMail extends Mailable
     {
         return new Envelope(
             from: new Address(Recap::getMailSenderAddress(), Recap::getMailSenderName()),
-            subject: 'Laporan Rekapitulasi Transaksi ZISWAF - ' . $this->donationRecap->getPeriodInString(),
+            subject: 'Laporan Rekapitulasi Gagal Diproses - ' . $this->donationRecap->getPeriodInString(),
             tags: ['rekapitulasi-donasi'],
             metadata: [
                 'recap_id' => $this->donationRecap->getKey(),
-                'recap_donor_id' => $this->recapDonor->getKey(),
             ],
         );
     }
 
     public function content(): Content
     {
+        $employee = $this->donationRecap->loadMissing('employee')->getAttribute('employee');
+        $template = $this->donationRecap->loadMissing('template')->getAttribute('template');
+
         return new Content(
-            view: 'recap::mail.recap',
+            view: 'recap::mail.failed',
             with: [
+                'employeeName' => $employee->getAttribute('name'),
+                'templateName' => $template->getAttribute('name'),
                 'period' => $this->donationRecap->getPeriodInString(),
-                'donorName' => $this->recapDonor->getAttribute('donor_name'),
             ],
         );
-    }
-
-    public function attachments(): array
-    {
-        $fileName = 'Rekapitulasi Transaksi ZISWAF an ' . $this->recapDonor->getAttribute('donor_name') . '.pdf';
-
-        return [
-            Attachment::fromStorageDisk(
-                $this->recapDonor->getAttribute('result_disk'),
-                $this->recapDonor->getAttribute('result_file_path')
-            )->as($fileName)->withMime('application/pdf'),
-        ];
     }
 }

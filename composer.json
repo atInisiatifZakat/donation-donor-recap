@@ -32,7 +32,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Inisiatif\\DonationRecap\\": "src"
+            "Inisiatif\\DonationRecap\\": "src",
+            "Inisiatif\\DonationRecap\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
@@ -48,8 +49,7 @@
     },
     "config": {
         "sort-packages": true,
-        "allow-plugins": {
-        }
+        "allow-plugins": {}
     },
     "extra": {
         "laravel": {
