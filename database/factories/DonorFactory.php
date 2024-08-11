@@ -18,9 +18,10 @@ final class DonorFactory extends Factory
     {
         return [
             'identification_number' => $this->faker->uuid,
+            'branch_id' => $this->faker->uuid,
+            'employee_id' => $this->faker->uuid,
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
-            'branch_id' => $this->faker->uuid,
             'notification_channels' => ["EMAIL"],
         ];
     }
