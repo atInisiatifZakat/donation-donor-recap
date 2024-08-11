@@ -33,6 +33,7 @@ return new class extends Migration
                 ->restrictOnDelete();
             $table->date('start_at');
             $table->date('end_at');
+            $table->boolean('single')->default(false);
             $table->unsignedInteger('count_total')->default(0);
             $table->unsignedInteger('count_progress')->default(0);
             $table->timestamp('last_send_at')->nullable();
