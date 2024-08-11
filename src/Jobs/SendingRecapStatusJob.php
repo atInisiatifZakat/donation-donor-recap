@@ -5,15 +5,13 @@ declare(strict_types=1);
 namespace Inisiatif\DonationRecap\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Mail;
-use Inisiatif\DonationRecap\Enums\DonationRecapState;
-use Inisiatif\DonationRecap\Mail\DonationRecapFailedMail;
-use Inisiatif\DonationRecap\Mail\DonationRecapSuccessMail;
-use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Models\Employee;
+use Inisiatif\DonationRecap\Models\DonationRecap;
+use Inisiatif\DonationRecap\Mail\DonationRecapStatusMail;
 
 final class SendingRecapStatusJob implements ShouldQueue
 {
@@ -23,8 +21,7 @@ final class SendingRecapStatusJob implements ShouldQueue
 
     public function __construct(
         private readonly DonationRecap $donationRecap,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {
@@ -37,20 +34,10 @@ final class SendingRecapStatusJob implements ShouldQueue
             return;
         }
 
-        if ($this->donationRecap->inState(DonationRecapState::done)) {
-            $mailable = new DonationRecapSuccessMail(
-                $this->donationRecap,
-            );
+        $mailable = new DonationRecapStatusMail(
+            $this->donationRecap,
+        );
 
-            Mail::to($employee->getEmail())->send($mailable);
-        }
-
-        if ($this->donationRecap->inState(DonationRecapState::failure)) {
-            $mailable = new DonationRecapFailedMail(
-                $this->donationRecap,
-            );
-
-            Mail::to($employee->getEmail())->send($mailable);
-        }
+        Mail::to($employee->getEmail())->send($mailable);
     }
 }
