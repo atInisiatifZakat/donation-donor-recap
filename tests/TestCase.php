@@ -31,7 +31,7 @@ abstract class TestCase extends Orchestra
 
         config()->set('database.default', 'testing');
         config()->set('recap.recording.donor_table_name', 'donors');
-        config()->set('recap.recording.user_table_name', 'users');
+        config()->set('recap.recording.employee_table_name', 'employees');
     }
 
     protected function defineDatabaseMigrations()
@@ -49,7 +49,7 @@ abstract class TestCase extends Orchestra
         artisan($this, 'migrate', ['--database' => 'testing']);
 
         $this->beforeApplicationDestroyed(
-            fn() => artisan($this, 'migrate:rollback', ['--database' => 'testing'])
+            fn () => artisan($this, 'migrate:rollback', ['--database' => 'testing'])
         );
     }
 }
