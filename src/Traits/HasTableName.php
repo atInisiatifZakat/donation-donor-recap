@@ -36,12 +36,6 @@ trait HasTableName
         return \config('recap.recording.employee_table_name');
     }
 
-    public static function getUserTableName(): ?string
-    {
-        /** @var string|null */
-        return \config('recap.recording.user_table_name');
-    }
-
     public static function getDonationTable(): ?string
     {
         /** @var string|null */
