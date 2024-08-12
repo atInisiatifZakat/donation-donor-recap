@@ -27,7 +27,7 @@ final class DonationRecapController
 
         $newRecap = $recap->handle(NewDonationRecapData::from([
             ...$request->except(['start_at', 'end_at']),
-            'user_id' => $user->getAttribute('id'),
+            'employee_id' => $user->getAttribute('employee_id'),
             'start_at' => $request->date('start_at'),
             'end_at' => $request->date('end_at'),
         ]));

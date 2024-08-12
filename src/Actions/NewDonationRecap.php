@@ -14,7 +14,7 @@ final class NewDonationRecap
     {
         /** @var DonationRecap */
         return DonationRecap::query()->create([
-            ...$data->only('templateId', 'userId', 'startAt', 'endAt')->toArray(),
+            ...$data->only('templateId', 'employeeId', 'startAt', 'endAt')->toArray(),
             'state' => DonationRecapState::new,
             'count_total' => 0,
         ]);

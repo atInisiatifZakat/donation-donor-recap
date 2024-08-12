@@ -34,9 +34,9 @@ final class DonationRecap extends Model
         return $this->belongsTo(DonationRecapTemplate::class);
     }
 
-    public function user(): BelongsTo
+    public function employee(): BelongsTo
     {
-        return $this->belongsTo(Recap::getUserClassModel());
+        return $this->belongsTo(Recap::getEmployeeClassModel());
     }
 
     public function items(): HasMany

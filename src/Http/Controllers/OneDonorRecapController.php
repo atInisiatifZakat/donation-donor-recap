@@ -25,7 +25,7 @@ final class OneDonorRecapController
             $donationRecap = $recap->handle(NewOneDonorRecapData::from([
                 ...$request->except(['donor_id', 'start_at', 'end_at']),
                 ...$donorData->toArray(),
-                'user_id' => $user->getAttribute('id'),
+                'employee_id' => $user->getAttribute('employee_id'),
                 'start_at' => $request->date('start_at'),
                 'end_at' => $request->date('end_at'),
             ]));

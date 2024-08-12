@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Inisiatif\DonationRecap;
 
 use Illuminate\Database\Eloquent\Model;
-use Inisiatif\DonationRecap\Models\User;
 use Inisiatif\DonationRecap\Models\Donor;
 use Inisiatif\DonationRecap\Models\Branch;
 use Inisiatif\DonationRecap\Models\Partner;
@@ -52,11 +51,6 @@ final class DonationRecap
     /**
      * @var class-string<Model>
      */
-    private static string $userModel = User::class;
-
-    /**
-     * @var class-string<Model>
-     */
     private static string $partnerModel = Partner::class;
 
     /**
@@ -96,14 +90,6 @@ final class DonationRecap
     public static function getBranchClassModel(): string
     {
         return self::$branchModel;
-    }
-
-    /**
-     * @return class-string<Model>
-     */
-    public static function getUserClassModel(): string
-    {
-        return self::$userModel;
     }
 
     /**

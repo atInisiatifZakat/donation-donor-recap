@@ -32,9 +32,6 @@ final class NewOneDonorRecapData extends Data
         #[Required, Uuid]
         public readonly string $donorId,
 
-        #[Required, IntegerType]
-        public readonly string $userId,
-
         #[Required, StringType, Max(100)]
         public readonly string $donorName,
 
@@ -44,5 +41,6 @@ final class NewOneDonorRecapData extends Data
         public readonly ?string $donorPhoneNumber = null,
         public readonly ?string $donorTaxNumber = null,
         public readonly ?string $donorAddress = null,
-    ) {}
+    ) {
+    }
 }

@@ -32,7 +32,7 @@ final class DonationRecapStatusMail extends Mailable
 
     public function content(): Content
     {
-        $user = $this->donationRecap->loadMissing('user')->getAttribute('user');
+        $employee = $this->donationRecap->loadMissing('employee')->getAttribute('employee');
         $template = $this->donationRecap->loadMissing('template')->getAttribute('template');
 
         $donors = $this->donationRecap->donors()->get();
@@ -52,7 +52,7 @@ final class DonationRecapStatusMail extends Mailable
         return new Content(
             view: 'recap::mail.status',
             with: [
-                'userName' => $user->getAttribute('name'),
+                'employeeName' => $employee->getAttribute('name'),
                 'templateName' => $template->getAttribute('name'),
                 'period' => $this->donationRecap->getPeriodInString(),
                 'donorCount' => $donorCount,

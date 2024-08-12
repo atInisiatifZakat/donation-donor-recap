@@ -19,7 +19,7 @@ final class NewOneDonorRecap
         $recap = DB::transaction(static function () use ($data): DonationRecap {
             /** @var DonationRecap $donationRecap */
             $donationRecap = DonationRecap::query()->create([
-                ...$data->only('templateId', 'userId', 'startAt', 'endAt')->toArray(),
+                ...$data->only('templateId', 'employeeId', 'startAt', 'endAt')->toArray(),
                 'count_total' => 1,
                 'single' => true,
                 'state' => DonationRecapState::new,
