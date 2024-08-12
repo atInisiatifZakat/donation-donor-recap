@@ -29,12 +29,11 @@ final class CombineDonorRecapFile implements ShouldBeUnique, ShouldQueue
     public function __construct(
         public readonly DonationRecap $donationRecap,
         public readonly DonationRecapDonor $donor,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {
-        if ($this->donationRecap->inState(DonationRecapState::new)) {
+        if ($this->donor->inState(ProcessingState::generated)) {
             $this->donationRecap->recordHistory(
                 \sprintf('Menggabungkan file rekap dengan template untuk %s', $this->donor->getAttribute('donor_name')),
                 $this->donor->getAttribute('donor_id')
@@ -66,7 +65,7 @@ final class CombineDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey().'|'.$this->donor->getKey();
+        return $this->donationRecap->getKey() . '|' . $this->donor->getKey();
     }
 
     public function failed(Throwable $exception): void
