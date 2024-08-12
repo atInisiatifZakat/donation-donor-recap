@@ -11,6 +11,7 @@ use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 use Spatie\LaravelData\Attributes\Validation\Date;
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\IntegerType;
+use Spatie\LaravelData\Attributes\Validation\StringType;
 
 #[MapName(SnakeCaseMapper::class)]
 final class NewDonationRecapData extends Data
@@ -18,6 +19,9 @@ final class NewDonationRecapData extends Data
     public function __construct(
         #[Required, IntegerType]
         public readonly int $templateId,
+
+        #[Required, StringType]
+        public readonly string $employeeId,
 
         #[Required, Date]
         public readonly DateTime $startAt,

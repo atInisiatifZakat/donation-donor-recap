@@ -22,12 +22,18 @@ return new class extends Migration
 
         Schema::create('donation_recaps', static function (Blueprint $table): void {
             $table->uuid('id')->primary();
+            $table->foreignUuid('employee_id')
+                ->nullable()
+                ->constrained('employees')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignId('template_id')
                 ->constrained('donation_recap_templates')
                 ->restrictOnUpdate()
                 ->restrictOnDelete();
             $table->date('start_at');
             $table->date('end_at');
+            $table->boolean('single')->default(false);
             $table->unsignedInteger('count_total')->default(0);
             $table->unsignedInteger('count_progress')->default(0);
             $table->timestamp('last_send_at')->nullable();

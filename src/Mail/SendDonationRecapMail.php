@@ -25,7 +25,7 @@ final class SendDonationRecapMail extends Mailable
     {
         return new Envelope(
             from: new Address(Recap::getMailSenderAddress(), Recap::getMailSenderName()),
-            subject: 'Laporan Rekapitulasi Transaksi ZISWAF - '.$this->donationRecap->getPeriodInString(),
+            subject: 'Laporan Rekapitulasi Transaksi ZISWAF - ' . $this->donationRecap->getPeriodInString(),
             tags: ['rekapitulasi-donasi'],
             metadata: [
                 'recap_id' => $this->donationRecap->getKey(),
@@ -37,7 +37,7 @@ final class SendDonationRecapMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'recap::mail',
+            view: 'recap::mail.recap',
             with: [
                 'period' => $this->donationRecap->getPeriodInString(),
                 'donorName' => $this->recapDonor->getAttribute('donor_name'),
@@ -47,7 +47,7 @@ final class SendDonationRecapMail extends Mailable
 
     public function attachments(): array
     {
-        $fileName = 'Rekapitulasi Transaksi ZISWAF an '.$this->recapDonor->getAttribute('donor_name').'.pdf';
+        $fileName = 'Rekapitulasi Transaksi ZISWAF an ' . $this->recapDonor->getAttribute('donor_name') . '.pdf';
 
         return [
             Attachment::fromStorageDisk(

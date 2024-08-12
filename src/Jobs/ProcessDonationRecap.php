@@ -22,18 +22,16 @@ final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
 
     public function __construct(
         public readonly DonationRecap $donationRecap,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {
         $this->donationRecap->recordHistory('Memproses pembuatan rekap donasi');
-
-        $this->donationRecap->donors()->eachById(fn (DonationRecapDonor $donor) => $this->dispatchChain([
+        $this->donationRecap->donors()->eachById(fn(DonationRecapDonor $donor) => $this->dispatchChain([
+            new IncreaseProgressDonationRecap($this->donationRecap),
             new BuildDonationRecapDetail($this->donationRecap, $donor),
             new GenerateDonorRecapFile($this->donationRecap, $donor),
             new CombineDonorRecapFile($this->donationRecap, $donor),
-            new IncreaseProgressDonationRecap($this->donationRecap),
             new CheckDonationRecapProgress($this->donationRecap),
         ]));
     }
