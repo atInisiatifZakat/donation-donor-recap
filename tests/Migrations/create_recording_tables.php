@@ -56,29 +56,7 @@ return new class extends Migration
 
             $table->primary('id');
         });
-
-        Schema::create('employees', function (Blueprint $table): void {
-            $table->uuid('id');
-            $table->uuid('branch_id');
-            $table->uuid('partner_id')->nullable();
-            $table->string('name', 145);
-            $table->string('email', 145);
-            $table->string('address', 255);
-            $table->integer('regency_id');
-            $table->integer('city_id');
-            $table->integer('province_id');
-            $table->string('postal_code', 10);
-            $table->integer('employee_phone_id')->nullable();
-            $table->boolean('is_marketer');
-            $table->softDeletes();
-            $table->timestamps();
-
-            $table->primary('id');
-        });
     }
 
-    public function down(): void
-    {
-        // Schema::dropIfExists('donors');
-    }
+    public function down(): void {}
 };

@@ -7,9 +7,9 @@ namespace Inisiatif\DonationRecap\Jobs;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
+use Inisiatif\DonationRecap\Models\User;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Inisiatif\DonationRecap\Models\Employee;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Mail\DonationRecapStatusMail;
 
@@ -27,10 +27,10 @@ final class SendingRecapStatusJob implements ShouldQueue
     {
         $this->donationRecap->refresh();
 
-        /** @var Employee|null $employee */
-        $employee = $this->donationRecap->loadMissing('employee')->getAttribute('employee');
+        /** @var User|null $user */
+        $user = $this->donationRecap->loadMissing('user')->getAttribute('user');
 
-        if (is_null($employee) || !$employee?->haveValidEmail()) {
+        if (is_null($user) || !$user?->haveValidEmail()) {
             return;
         }
 
@@ -38,6 +38,6 @@ final class SendingRecapStatusJob implements ShouldQueue
             $this->donationRecap,
         );
 
-        Mail::to($employee->getEmail())->send($mailable);
+        Mail::to($user->getEmail())->send($mailable);
     }
 }

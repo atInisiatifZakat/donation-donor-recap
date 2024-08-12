@@ -22,9 +22,9 @@ return new class extends Migration
 
         Schema::create('donation_recaps', static function (Blueprint $table): void {
             $table->uuid('id')->primary();
-            $table->foreignUuid('employee_id')
+            $table->foreignId('user_id')
                 ->nullable()
-                ->constrained('employees')
+                ->constrained('users')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->foreignId('template_id')

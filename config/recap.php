@@ -18,6 +18,8 @@ return [
 
         'employee_table_name' => env('RECORDING_EMPLOYEE_TABLE_NAME', 'edonation.employees'),
 
+        'user_table_name' => env('RECORDING_USER_TABLE_NAME', 'edonation.users'),
+
         'partner_table_name' => env('RECORDING_PARTNER_TABLE_NAME', 'edonation.partners'),
 
         'donation_table_name' => env('RECORDING_DONATION_TABLE_NAME', 'edonation.donations'),

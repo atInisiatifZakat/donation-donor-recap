@@ -2,7 +2,7 @@
 
 @section('content')
     @component('inisiatif::mail.components.paragraph', ['align' => 'left'])
-        Assalamu'alaikum {{ $employeeName }}
+        Assalamu'alaikum {{ $userName }}
     @endcomponent
 
     @component('inisiatif::mail.components.paragraph', ['align' => 'left'])

@@ -20,7 +20,7 @@ final class DonationRecapFactory extends Factory
     {
         return [
             'template_id' => DonationRecapTemplateFactory::new(),
-            'employee_id' => EmployeeFactory::new(),
+            'user_id' => $this->faker->randomDigit(),
             'start_at' => $this->faker->date(),
             'end_at' => $this->faker->date(),
             'count_total' => 0,
