@@ -10,7 +10,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
 
@@ -38,11 +37,6 @@ final class CheckDonationRecapProgress implements ShouldBeUnique, ShouldQueue
         if ($countTotal === $countProgress && !$this->donationRecap->getAttribute('single')) {
             \dispatch(new SendingRecapStatusJob($this->donationRecap));
         }
-    }
-
-    public function middleware(): array
-    {
-        return [(new WithoutOverlapping($this->donationRecap->getKey()))];
     }
 
     public function uniqueId(): string
