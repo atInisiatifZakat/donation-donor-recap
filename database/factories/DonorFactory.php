@@ -22,7 +22,7 @@ final class DonorFactory extends Factory
             'employee_id' => $this->faker->uuid,
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
-            'notification_channels' => ["EMAIL"],
+            'notification_channels' => ['EMAIL'],
         ];
     }
 }

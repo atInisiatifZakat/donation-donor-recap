@@ -19,8 +19,7 @@ final class SendingDonationRecapJob implements ShouldQueue
 
     public function __construct(
         private readonly DonationRecap $donationRecap,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {

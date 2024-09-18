@@ -25,8 +25,7 @@ final class BuildDonationRecapDetail implements ShouldBeUnique, ShouldQueue
     public function __construct(
         public readonly DonationRecap $donationRecap,
         public readonly DonationRecapDonor $donor,
-    ) {
-    }
+    ) {}
 
     public function handle(DonationRecapDetailBuilder $builder): void
     {

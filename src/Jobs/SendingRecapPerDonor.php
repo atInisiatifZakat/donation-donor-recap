@@ -25,8 +25,7 @@ final class SendingRecapPerDonor implements ShouldQueue
     public function __construct(
         private readonly DonationRecap $donationRecap,
         private readonly DonationRecapDonor $donationRecapDonor,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {

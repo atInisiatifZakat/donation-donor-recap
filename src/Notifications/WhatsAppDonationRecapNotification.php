@@ -32,8 +32,7 @@ final class WhatsAppDonationRecapNotification extends Notification implements Qo
     public function __construct(
         private readonly DonationRecap $donationRecap,
         private readonly DonationRecapDonor $donationRecapDonor
-    ) {
-    }
+    ) {}
 
     public function via(): array
     {
