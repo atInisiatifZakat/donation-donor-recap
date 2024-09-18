@@ -6,10 +6,8 @@ namespace Inisiatif\DonationRecap\Tests;
 
 use function Orchestra\Testbench\artisan;
 
-use Illuminate\Support\Facades\DB;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Inisiatif\DonationRecap\DonationRecapServiceProvider;
-
 
 abstract class TestCase extends Orchestra
 {
@@ -26,7 +24,7 @@ abstract class TestCase extends Orchestra
         config()->set('database.connections.testing', [
             'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
 
         config()->set('database.default', 'testing');
@@ -34,11 +32,11 @@ abstract class TestCase extends Orchestra
         config()->set('recap.recording.employee_table_name', 'employees');
     }
 
-    protected function defineDatabaseMigrations()
+    protected function defineDatabaseMigrations(): void
     {
 
-        $appMigrationPath = __DIR__ . '/../database/migrations';
-        $testMigrationPath = __DIR__ . '/../tests/Migrations';
+        $appMigrationPath = __DIR__.'/../database/migrations';
+        $testMigrationPath = __DIR__.'/../tests/Migrations';
 
         $this->loadMigrationsFrom($appMigrationPath);
 

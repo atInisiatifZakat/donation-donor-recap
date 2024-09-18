@@ -22,7 +22,7 @@ final class GeneratePdf
 
     protected static function browserShot(): Browsershot
     {
-        return self::$browserShot ?? new Browsershot();
+        return self::$browserShot ?? new Browsershot;
     }
 
     /**
@@ -52,7 +52,7 @@ final class GeneratePdf
 
     public static function combine(array $contents): string
     {
-        $pdf = new Fpdi();
+        $pdf = new Fpdi;
 
         collect($contents)->filter(fn (mixed $content) => is_resource($content))->each(function (mixed $content) use ($pdf): void {
             $pageCount = $pdf->setSourceFile(new StreamReader($content));

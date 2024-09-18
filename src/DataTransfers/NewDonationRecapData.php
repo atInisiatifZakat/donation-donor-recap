@@ -10,8 +10,8 @@ use Spatie\LaravelData\Attributes\MapName;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
 use Spatie\LaravelData\Attributes\Validation\Date;
 use Spatie\LaravelData\Attributes\Validation\Required;
-use Spatie\LaravelData\Attributes\Validation\IntegerType;
 use Spatie\LaravelData\Attributes\Validation\StringType;
+use Spatie\LaravelData\Attributes\Validation\IntegerType;
 
 #[MapName(SnakeCaseMapper::class)]
 final class NewDonationRecapData extends Data
@@ -28,6 +28,5 @@ final class NewDonationRecapData extends Data
 
         #[Required, Date]
         public readonly DateTime $endAt,
-    ) {
-    }
+    ) {}
 }

@@ -41,6 +41,5 @@ final class NewOneDonorRecapData extends Data
         public readonly ?string $donorPhoneNumber = null,
         public readonly ?string $donorTaxNumber = null,
         public readonly ?string $donorAddress = null,
-    ) {
-    }
+    ) {}
 }

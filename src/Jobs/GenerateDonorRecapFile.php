@@ -29,8 +29,7 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
     public function __construct(
         public readonly DonationRecap $donationRecap,
         public readonly DonationRecapDonor $donor,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {

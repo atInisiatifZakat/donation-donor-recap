@@ -19,15 +19,14 @@ final class SendingDonationRecapJob implements ShouldQueue
 
     public function __construct(
         private readonly DonationRecap $donationRecap,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {
         $this->donationRecap->donors()->each(function (DonationRecapDonor $recapDonor): void {
             $this->donationRecap->recordHistory('Memproses pengiriman rekap donasi');
 
-            \dispatch(new SendingRecapPerDonor($this->donationRecap, $recapDonor))->delay(now()->addMilliseconds(60));
+            \dispatch(new SendingRecapPerDonor($this->donationRecap, $recapDonor))->delay(now()->addSecond());
         });
     }
 }
