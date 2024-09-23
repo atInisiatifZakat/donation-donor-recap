@@ -28,7 +28,7 @@ final class DonationRecapDonorFactory extends Factory
             'state' => ProcessingState::new,
             'disk' => 'local',
             'result_disk' => 'local',
-            'result_file_path' => $this->faker->filePath()
+            'result_file_path' => $this->faker->filePath(),
         ];
     }
 }

@@ -26,7 +26,7 @@ final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
-        $this->donationRecap->recordHistory('Memproses pembuatan rekap donasi');
+         $this->donationRecap->recordHistory('Memproses pembuatan rekap donasi');
 
         $this->donationRecap->loadMissing('donors');
 

@@ -11,7 +11,6 @@ use Inisiatif\DonationRecap\Enums\DonationRecapState;
 
 final class DonationRecapFactory extends Factory
 {
-
     use WithFaker;
 
     protected $model = DonationRecap::class;

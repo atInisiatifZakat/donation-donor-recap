@@ -30,7 +30,7 @@ final class SendingRecapStatusJob implements ShouldQueue
         /** @var Employee|null $employee */
         $employee = $this->donationRecap->loadMissing('employee')->getAttribute('employee');
 
-        if (is_null($employee) || !$employee?->haveValidEmail()) {
+        if (is_null($employee) || ! $employee?->haveValidEmail()) {
             return;
         }
 

@@ -9,8 +9,8 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Inisiatif\DonationRecap\Models\DonationRecap;
-use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Inisiatif\DonationRecap\Enums\ProcessingState;
+use Inisiatif\DonationRecap\DonationRecap as Recap;
 
 final class DonationRecapStatusMail extends Mailable
 {
@@ -22,7 +22,7 @@ final class DonationRecapStatusMail extends Mailable
     {
         return new Envelope(
             from: new Address(Recap::getMailSenderAddress(), Recap::getMailSenderName()),
-            subject: 'Laporan Status Rekapitulasi ZISWAF - ' . $this->donationRecap->getPeriodInString(),
+            subject: 'Laporan Status Rekapitulasi ZISWAF - '.$this->donationRecap->getPeriodInString(),
             tags: ['rekapitulasi-donasi'],
             metadata: [
                 'recap_id' => $this->donationRecap->getKey(),
@@ -56,7 +56,7 @@ final class DonationRecapStatusMail extends Mailable
                 'templateName' => $template->getAttribute('name'),
                 'period' => $this->donationRecap->getPeriodInString(),
                 'donorCount' => $donorCount,
-                'url' => $url
+                'url' => $url,
             ],
         );
     }

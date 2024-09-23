@@ -16,8 +16,7 @@ final class AttachDonorDonationRecap
 {
     public function __construct(
         private readonly DonorResolver $donorResolver
-    ) {
-    }
+    ) {}
 
     /**
      * @throw CannotAttachDonor
