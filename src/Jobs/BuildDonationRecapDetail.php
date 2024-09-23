@@ -29,7 +29,7 @@ final class BuildDonationRecapDetail implements ShouldBeUnique, ShouldQueue
 
     public function handle(DonationRecapDetailBuilder $builder): void
     {
-        if ($this->donationRecap->inState(DonationRecapState::new)) {
+        if ($this->donor->inState(ProcessingState::new)) {
             $this->donor->state(ProcessingState::collecting);
 
             $builder->buildFor($this->donationRecap, $this->donor);
@@ -45,7 +45,7 @@ final class BuildDonationRecapDetail implements ShouldBeUnique, ShouldQueue
 
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey().'|'.$this->donor->getKey();
+        return $this->donationRecap->getKey() . '|' . $this->donor->getKey();
     }
 
     public function failed(Throwable $exception): void
