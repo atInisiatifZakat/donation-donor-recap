@@ -26,11 +26,11 @@ final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
-         $this->donationRecap->recordHistory('Memproses pembuatan rekap donasi');
+        $this->donationRecap->recordHistory('Memproses pembuatan rekap donasi');
 
         $this->donationRecap->loadMissing('donors');
 
-        $jobChains = $this->donationRecap->getAttribute('donors')->flatMap(fn(DonationRecapDonor $donor) => [
+        $jobChains = $this->donationRecap->getAttribute('donors')->flatMap(fn (DonationRecapDonor $donor) => [
             new IncreaseProgressDonationRecap($this->donationRecap),
             new BuildDonationRecapDetail($this->donationRecap, $donor),
             new GenerateDonorRecapFile($this->donationRecap, $donor),
@@ -40,7 +40,6 @@ final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
 
         $this->dispatchChain($jobChains);
     }
-
 
     public function uniqueId(): string
     {
