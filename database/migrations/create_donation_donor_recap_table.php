@@ -57,6 +57,11 @@ return new class extends Migration
             $table->string('donation_funding_type_name');
             $table->string('donation_program_name')->nullable();
 
+            $table->string('donation_type')->nullable();
+            $table->string('donation_good_name')->nullable();
+            $table->unsignedBigInteger('donation_good_quantity')->nullable();
+            $table->string('donation_good_unit')->nullable();
+
             $table->decimal('donation_amount', 18);
 
             $table->foreignUuid('donor_id')
