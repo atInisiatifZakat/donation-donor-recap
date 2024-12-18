@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "fromhome/kutt-php": "^0.5.0",
         "fromhome/zenziva-client-api": "^5.0.0",
         "inisiatif/template": "^1.1",
