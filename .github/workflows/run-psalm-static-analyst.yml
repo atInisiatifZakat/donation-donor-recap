@@ -3,9 +3,9 @@ name: Running Psalm
 on:
   push:
     paths:
-      - '**.php'
-      - 'psalm.xml'
-      - 'psalm-baseline.xml'
+      - "**.php"
+      - "psalm.xml"
+      - "psalm-baseline.xml"
 
 jobs:
   psalm:
@@ -20,7 +20,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: "8.2"
           coverage: none
 
       - name: Install composer dependencies
