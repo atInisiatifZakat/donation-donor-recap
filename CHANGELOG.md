@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.1.0 - 2024-12-18
+
+### What's Changed
+
+* Recap donation good by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/39
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.0.0...1.1.0
+
 ## 1.0.0 - 2024-12-18
 
 ### What's Changed
