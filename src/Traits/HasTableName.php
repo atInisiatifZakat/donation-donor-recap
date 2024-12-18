@@ -60,6 +60,12 @@ trait HasTableName
         return \config('recap.recording.donation_funding_type_table_name');
     }
 
+    public static function getFundingGoodTable(): ?string
+    {
+        /** @var string|null */
+        return \config('recap.recording.donation_funding_good_table_name');
+    }
+
     public static function getProgramTable(): ?string
     {
         /** @var string|null */
