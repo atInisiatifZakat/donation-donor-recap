@@ -68,7 +68,7 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey() . '|' . $this->donor->getKey();
+        return $this->donationRecap->getKey().'|'.$this->donor->getKey();
     }
 
     public function failed(Throwable $exception): void
