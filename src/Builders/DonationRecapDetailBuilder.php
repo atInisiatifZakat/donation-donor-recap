@@ -47,6 +47,12 @@ final class DonationRecapDetailBuilder
                 self::getDonationDetailTable() . '.funding_good_id'
             )
             ->leftJoin(
+                self::getFundingGoodTable(),
+                self::getFundingGoodTable().'.id',
+                '=',
+                self::getDonationDetailTable().'.funding_good_id'
+            )
+            ->leftJoin(
                 self::getProgramTable(),
                 self::getProgramTable() . '.id',
                 '=',
@@ -90,6 +96,7 @@ final class DonationRecapDetailBuilder
             DB::raw(self::getDonationDetailTable() . '.total_amount as donation_amount'),
             self::getDonationDetailTable() . '.donation_id',
             self::getDonationTable() . '.donor_id',
+
         ];
     }
 }
