@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.1.1 - 2024-12-23
+
+### What's Changed
+
+* Fixing bug : donor recap stuck at collected state by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/40
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.1.0...1.1.1
+
 ## 1.1.0 - 2024-12-18
 
 ### What's Changed

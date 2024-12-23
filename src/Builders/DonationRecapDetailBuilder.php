@@ -24,38 +24,38 @@ final class DonationRecapDetailBuilder
             ->select($this->getSelectStatement())
             ->join(
                 self::getDonationTable(),
-                self::getDonationTable() . '.id',
+                self::getDonationTable().'.id',
                 '=',
-                self::getDonationDetailTable() . '.donation_id'
+                self::getDonationDetailTable().'.donation_id'
             )
             ->join(
                 self::getFundingTypeTable(),
-                self::getFundingTypeTable() . '.id',
+                self::getFundingTypeTable().'.id',
                 '=',
-                self::getDonationDetailTable() . '.funding_type_id'
+                self::getDonationDetailTable().'.funding_type_id'
             )
             ->join(
                 self::getFundingCategoryTable(),
-                self::getFundingCategoryTable() . '.id',
+                self::getFundingCategoryTable().'.id',
                 '=',
-                self::getFundingTypeTable() . '.funding_category_id'
+                self::getFundingTypeTable().'.funding_category_id'
             )
             ->leftJoin(
                 self::getFundingGoodTable(),
-                self::getFundingGoodTable() . '.id',
+                self::getFundingGoodTable().'.id',
                 '=',
-                self::getDonationDetailTable() . '.funding_good_id'
+                self::getDonationDetailTable().'.funding_good_id'
             )
             ->leftJoin(
                 self::getProgramTable(),
-                self::getProgramTable() . '.id',
+                self::getProgramTable().'.id',
                 '=',
-                self::getDonationDetailTable() . '.program_id'
+                self::getDonationDetailTable().'.program_id'
             )
-            ->where(self::getDonationTable() . '.donor_id', $donor->getAttribute('donor_id'))
-            ->where(self::getDonationTable() . '.transaction_status', 'VERIFIED')
-            ->whereNull(self::getDonationDetailTable() . '.deleted_at')
-            ->whereBetween(self::getDonationTable() . '.transaction_date', [
+            ->where(self::getDonationTable().'.donor_id', $donor->getAttribute('donor_id'))
+            ->where(self::getDonationTable().'.transaction_status', 'VERIFIED')
+            ->whereNull(self::getDonationDetailTable().'.deleted_at')
+            ->whereBetween(self::getDonationTable().'.transaction_date', [
                 $recap->getPeriodStartDate()->startOfDay(),
                 $recap->getPeriodEndDate()->endOfDay(),
             ])->chunkById(1000, function (Collection $items) use ($recap): void {
