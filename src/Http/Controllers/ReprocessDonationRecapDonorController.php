@@ -6,8 +6,8 @@ namespace Inisiatif\DonationRecap\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Inisiatif\DonationRecap\Models\DonationRecap;
-use Inisiatif\DonationRecap\Jobs\ReprocessDonationRecapDonor;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
+use Inisiatif\DonationRecap\Jobs\ReprocessDonationRecapDonor;
 
 final class ReprocessDonationRecapDonorController
 {

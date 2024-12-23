@@ -32,7 +32,7 @@ final class ReprocessDonationRecapDonor implements ShouldBeUnique, ShouldQueue
             \sprintf('Memproses ulang pembuatan rekap donasi untuk %s', $this->donor->getAttribute('donor_name'))
         );
 
-        $jobChains =  [
+        $jobChains = [
             new BuildDonationRecapDetail($this->donationRecap, $this->donor),
             new GenerateDonorRecapFile($this->donationRecap, $this->donor),
             new CombineDonorRecapFile($this->donationRecap, $this->donor),
@@ -41,10 +41,9 @@ final class ReprocessDonationRecapDonor implements ShouldBeUnique, ShouldQueue
         $this->dispatchChain($jobChains);
     }
 
-
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey() . '-' . $this->donor->getKey();
+        return $this->donationRecap->getKey().'-'.$this->donor->getKey();
     }
 
     protected function dispatchChain(array $jobs): void
