@@ -47,12 +47,6 @@ final class DonationRecapDetailBuilder
                 self::getDonationDetailTable().'.funding_good_id'
             )
             ->leftJoin(
-                self::getFundingGoodTable(),
-                self::getFundingGoodTable().'.id',
-                '=',
-                self::getDonationDetailTable().'.funding_good_id'
-            )
-            ->leftJoin(
                 self::getProgramTable(),
                 self::getProgramTable().'.id',
                 '=',
@@ -82,21 +76,20 @@ final class DonationRecapDetailBuilder
     private function getSelectStatement(): array
     {
         return [
-            self::getDonationDetailTable().'.id',
-            DB::raw(self::getDonationTable().'.transaction_date as donation_transaction_date'),
-            DB::raw(self::getDonationTable().'.identification_number as donation_identification_number'),
-            DB::raw(self::getDonationTable().'.type as donation_type'),
-            DB::raw(self::getFundingCategoryTable().'.id as donation_funding_category_id'),
-            DB::raw(self::getFundingCategoryTable().'.name as donation_funding_category_name'),
-            DB::raw(self::getFundingTypeTable().'.name as donation_funding_type_name'),
-            DB::raw(self::getProgramTable().'.name as donation_program_name'),
-            DB::raw(self::getDonationDetailTable().'.good_name as donation_good_name'),
-            DB::raw(self::getDonationDetailTable().'.good_quantity as donation_good_quantity'),
-            DB::raw(self::getFundingGoodTable().'.unit as donation_good_unit'),
-            DB::raw(self::getDonationDetailTable().'.total_amount as donation_amount'),
-            self::getDonationDetailTable().'.donation_id',
-            self::getDonationTable().'.donor_id',
-
+            self::getDonationDetailTable() . '.id',
+            DB::raw(self::getDonationTable() . '.transaction_date as donation_transaction_date'),
+            DB::raw(self::getDonationTable() . '.identification_number as donation_identification_number'),
+            DB::raw(self::getDonationTable() . '.type as donation_type'),
+            DB::raw(self::getFundingCategoryTable() . '.id as donation_funding_category_id'),
+            DB::raw(self::getFundingCategoryTable() . '.name as donation_funding_category_name'),
+            DB::raw(self::getFundingTypeTable() . '.name as donation_funding_type_name'),
+            DB::raw(self::getProgramTable() . '.name as donation_program_name'),
+            DB::raw(self::getDonationDetailTable() . '.good_name as donation_good_name'),
+            DB::raw(self::getDonationDetailTable() . '.good_quantity as donation_good_quantity'),
+            DB::raw(self::getFundingGoodTable() . '.unit as donation_good_unit'),
+            DB::raw(self::getDonationDetailTable() . '.total_amount as donation_amount'),
+            self::getDonationDetailTable() . '.donation_id',
+            self::getDonationTable() . '.donor_id',
         ];
     }
 }
