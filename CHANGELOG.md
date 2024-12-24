@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.1.2 - 2024-12-24
+
+### What's Changed
+
+* Fix query builder by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/41
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.1.1...1.1.2
+
 ## 1.1.1 - 2024-12-23
 
 ### What's Changed
