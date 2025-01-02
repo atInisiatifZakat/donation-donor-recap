@@ -46,14 +46,14 @@ final class ProcessDonationRecapTest extends TestCase
         $job->handle();
 
         Bus::assertChained([
-            //First Donor Recap
+            // First Donor Recap
             IncreaseProgressDonationRecap::class,
             BuildDonationRecapDetail::class,
             GenerateDonorRecapFile::class,
             CombineDonorRecapFile::class,
             CheckDonationRecapProgress::class,
 
-            //Second Donor Recap
+            // Second Donor Recap
             IncreaseProgressDonationRecap::class,
             BuildDonationRecapDetail::class,
             GenerateDonorRecapFile::class,
