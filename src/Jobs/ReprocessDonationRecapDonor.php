@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
+use Inisiatif\DonationRecap\Enums\ProcessingState;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 
 final class ReprocessDonationRecapDonor implements ShouldBeUnique, ShouldQueue
@@ -27,10 +28,12 @@ final class ReprocessDonationRecapDonor implements ShouldBeUnique, ShouldQueue
 
     public function handle(): void
     {
+        $this->donor->state(ProcessingState::new);
 
         $this->donationRecap->recordHistory(
             \sprintf('Memproses ulang pembuatan rekap donasi untuk %s', $this->donor->getAttribute('donor_name'))
         );
+
 
         $jobChains = [
             new BuildDonationRecapDetail($this->donationRecap, $this->donor),
@@ -43,7 +46,7 @@ final class ReprocessDonationRecapDonor implements ShouldBeUnique, ShouldQueue
 
     public function uniqueId(): string
     {
-        return $this->donationRecap->getKey().'-'.$this->donor->getKey();
+        return $this->donationRecap->getKey() . '-' . $this->donor->getKey();
     }
 
     protected function dispatchChain(array $jobs): void
