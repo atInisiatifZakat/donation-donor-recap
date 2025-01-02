@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.1.3 - 2025-01-02
+
+### What's Changed
+
+* Change state to new before reprocess by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/42
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.1.2...1.1.3
+
 ## 1.1.2 - 2024-12-24
 
 ### What's Changed
