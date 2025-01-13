@@ -76,7 +76,7 @@ final class DonationRecapDetailBuilder
     private function getSelectStatement(): array
     {
         return [
-            self::getDonationDetailTable() . '.id as donation_detail_id',
+            DB::raw(self::getDonationDetailTable() . '.id as donation_detail_id'),
             DB::raw(self::getDonationTable() . '.transaction_date as donation_transaction_date'),
             DB::raw(self::getDonationTable() . '.identification_number as donation_identification_number'),
             DB::raw(self::getDonationTable() . '.type as donation_type'),
