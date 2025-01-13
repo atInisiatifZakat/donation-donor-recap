@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.1.4 - 2025-01-13
+
+### What's Changed
+
+* Fixing bug when collecting data by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/43
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.1.3...1.1.4
+
 ## 1.1.3 - 2025-01-02
 
 ### What's Changed
