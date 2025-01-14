@@ -60,13 +60,15 @@ final class DonationRecapDetailBuilder
                 $recap->getPeriodEndDate()->endOfDay(),
             ])->chunkById(1000, function (Collection $items) use ($recap): void {
                 $attributes = $items->map(static function (object $attribute) use ($recap): array {
-                    return [
+                    $data = [
                         ...(array) $attribute,
                         'id' => Str::orderedUuid()->toString(),
                         'donation_recap_id' => $recap->getKey(),
                         'created_at' => now()->toDateTimeString(),
                         'updated_at' => now()->toDateTimeString(),
                     ];
+                    unset($data['donation_detail_id']);
+                    return $data;
                 })->toArray();
 
                 DB::table('donation_recap_details')->insert($attributes);
