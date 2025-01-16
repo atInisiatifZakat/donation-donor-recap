@@ -65,12 +65,14 @@ final class DonationRecapDetailBuilder
                         ...(array) $attribute,
                         'id' => Str::orderedUuid()->toString(),
                         'donation_funding_type_name' => $attribute->donation_funding_type_public_name ?? $attribute->donation_funding_type_name,
+                        'donation_amount' => $attribute->donation_total_amount ?? $attribute->donation_amount,
                         'donation_recap_id' => $recap->getKey(),
                         'created_at' => now()->toDateTimeString(),
                         'updated_at' => now()->toDateTimeString(),
                     ];
                     unset($data['donation_detail_id']);
                     unset($data['donation_funding_type_public_name']);
+                    unset($data['donation_total_amount']);
 
                     return $data;
                 })->toArray();
@@ -99,7 +101,8 @@ final class DonationRecapDetailBuilder
             DB::raw(self::getDonationDetailTable().'.good_name as donation_good_name'),
             DB::raw(self::getDonationDetailTable().'.good_quantity as donation_good_quantity'),
             DB::raw(self::getFundingGoodTable().'.unit as donation_good_unit'),
-            DB::raw(self::getDonationDetailTable().'.total_amount as donation_amount'),
+            DB::raw(self::getDonationDetailTable() . '.amount as donation_amount'),
+            DB::raw(self::getDonationDetailTable() . '.total_amount as donation_total_amount'),
             self::getDonationDetailTable().'.donation_id',
             self::getDonationTable().'.donor_id',
         ];
