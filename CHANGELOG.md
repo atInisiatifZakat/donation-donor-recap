@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.1.6 - 2025-01-16
+
+### What's Changed
+
+* Add try catch block when collecting data by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/46
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.1.5...1.1.6
+
 ## 1.1.4 - 2025-01-13
 
 ### What's Changed
