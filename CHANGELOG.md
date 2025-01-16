@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.1.7 - 2025-01-16
+
+### What's Changed
+
+* Fixing bug: donation amount null by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/47
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.1.6...1.1.7
+
 ## 1.1.6 - 2025-01-16
 
 ### What's Changed
