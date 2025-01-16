@@ -69,10 +69,17 @@ final class DonationRecapDetailBuilder
                         'updated_at' => now()->toDateTimeString(),
                     ];
                     unset($data['donation_detail_id']);
+                    unset($data['donation_funding_type_public_name']);
+
                     return $data;
                 })->toArray();
 
-                DB::table('donation_recap_details')->insert($attributes);
+                try {
+                    DB::table('donation_recap_details')->insert($attributes);
+                } catch (\Throwable $exception) {
+                    $recap->state(DonationRecapState::failure);
+                    $recap->recordHistory($exception->getMessage(), $donor->getAttribute('donor_id'));
+                }
             }, self::getDonationDetailTable().'.id', 'donation_detail_id');
     }
 
