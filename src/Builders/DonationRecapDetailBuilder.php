@@ -7,9 +7,9 @@ namespace Inisiatif\DonationRecap\Builders;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Traits\HasTableName;
 use Inisiatif\DonationRecap\Models\DonationRecap;
+use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 
 final class DonationRecapDetailBuilder
