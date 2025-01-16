@@ -101,8 +101,8 @@ final class DonationRecapDetailBuilder
             DB::raw(self::getDonationDetailTable().'.good_name as donation_good_name'),
             DB::raw(self::getDonationDetailTable().'.good_quantity as donation_good_quantity'),
             DB::raw(self::getFundingGoodTable().'.unit as donation_good_unit'),
-            DB::raw(self::getDonationDetailTable() . '.amount as donation_amount'),
-            DB::raw(self::getDonationDetailTable() . '.total_amount as donation_total_amount'),
+            DB::raw(self::getDonationDetailTable().'.amount as donation_amount'),
+            DB::raw(self::getDonationDetailTable().'.total_amount as donation_total_amount'),
             self::getDonationDetailTable().'.donation_id',
             self::getDonationTable().'.donor_id',
         ];
