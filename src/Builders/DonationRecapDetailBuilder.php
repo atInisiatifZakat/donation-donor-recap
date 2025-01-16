@@ -7,6 +7,7 @@ namespace Inisiatif\DonationRecap\Builders;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Traits\HasTableName;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
@@ -58,7 +59,7 @@ final class DonationRecapDetailBuilder
             ->whereBetween(self::getDonationTable().'.transaction_date', [
                 $recap->getPeriodStartDate()->startOfDay(),
                 $recap->getPeriodEndDate()->endOfDay(),
-            ])->chunkById(1000, function (Collection $items) use ($recap): void {
+            ])->chunkById(1000, function (Collection $items) use ($recap, $donor): void {
                 $attributes = $items->map(static function (object $attribute) use ($recap): array {
                     $data = [
                         ...(array) $attribute,
@@ -74,7 +75,12 @@ final class DonationRecapDetailBuilder
                     return $data;
                 })->toArray();
 
-                DB::table('donation_recap_details')->insert($attributes);
+                try {
+                    DB::table('donation_recap_details')->insert($attributes);
+                } catch (\Throwable $exception) {
+                    $recap->state(DonationRecapState::failure);
+                    $recap->recordHistory($exception->getMessage(), $donor->getAttribute('donor_id'));
+                }
             }, self::getDonationDetailTable().'.id', 'donation_detail_id');
     }
 
