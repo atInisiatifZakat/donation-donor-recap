@@ -28,9 +28,9 @@ final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
     {
         $this->donationRecap->recordHistory('Memproses pembuatan rekap donasi');
 
-        $this->donationRecap->loadMissing('donors');
+        $donors = $this->donationRecap->donors()->get();
 
-        $jobChains = $this->donationRecap->getAttribute('donors')->flatMap(fn (DonationRecapDonor $donor) => [
+        $jobChains = $donors->flatMap(fn(DonationRecapDonor $donor) => [
             new IncreaseProgressDonationRecap($this->donationRecap),
             new BuildDonationRecapDetail($this->donationRecap, $donor),
             new GenerateDonorRecapFile($this->donationRecap, $donor),
