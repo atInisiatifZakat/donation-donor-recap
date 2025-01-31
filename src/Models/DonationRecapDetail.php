@@ -22,4 +22,9 @@ final class DonationRecapDetail extends Model
     {
         return $this->getAttribute('donation_transaction_date');
     }
+
+    public function getTotalAmount(): float
+    {
+        return $this->getAttribute('donation_amount') * $this->getAttribute('currency_rate');
+    }
 }
