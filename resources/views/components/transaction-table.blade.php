@@ -1,4 +1,4 @@
-<table class="min-w-full divide-y divide-gray-200 mt-8">
+<table class="min-w-full divide-y divide-gray-200 mt-2">
     <thead>
         <tr>
             <th class="rounded-l-sm bg-izi-green px-4 py-2 text-left text-xs font-bold tracking-wider">
@@ -22,7 +22,7 @@
         @endif
 
         @if ($items->isNotEmpty())
-            @foreach ($items->splice(0, 5) as $item)
+            @foreach ($items->splice(0, 7) as $item)
                 <tr class="h-14">
                     <td class="px-3 py-1 whitespace-nowrap {{ $loop->last ? '' : 'border-b' }} border-gray-200">
                         {{ $item->getTransactionDate()->format('d M Y') }}

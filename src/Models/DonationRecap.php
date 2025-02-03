@@ -114,23 +114,12 @@ final class DonationRecap extends Model
 
     public function getCategoryItemsSummaries(string $donorId): DonationSummaries
     {
-        $collection = $this->items()
-            ->selectRaw('
-                donation_recap_details.donation_funding_category_id as category_id,
-                donation_recap_details.donation_funding_category_name as category,
-                SUM(donation_recap_details.donation_amount) as donation_amount,
-                COALESCE(donations.currency, \'IDR\') as currency, 
-                COALESCE(donations.currency_rate, 1.0)::FLOAT as currency_rate
-            ')
-            ->leftJoin('donations', 'donations.id', '=', 'donation_recap_details.donation_id')
-            ->where('donation_recap_details.donor_id', $donorId)
-            ->groupBy(
-                'donation_recap_details.donation_funding_category_id',
-                'donation_recap_details.donation_funding_category_name', 
-                'donations.currency', 
-                'donations.currency_rate'
-            )
-            ->orderBy('donation_recap_details.donation_funding_category_id')
+        $collection = $this->items()->where('donor_id', $donorId)->select([
+            DB::raw('donation_funding_category_id as category_id'),
+            DB::raw('donation_funding_category_name as category'),
+            DB::raw('sum(donation_amount) as donation_amount'),
+        ])->groupBy('donation_funding_category_id', 'donation_funding_category_name')
+            ->orderBy('donation_funding_category_id')
             ->get();
 
         return new DonationSummaries(
