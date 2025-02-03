@@ -73,7 +73,12 @@
                         </p>
                     </td>
                     <td class="px-3 py-1 whitespace-nowrap text-right border-b border-gray-200">
-                        Rp. {{ \number_format($item->getAttribute('donation_amount')) }}
+                        <li class="list-none">
+                            Rp. {{ \number_format($item->getTotalAmount()) }}
+                        </li>
+                        <li class="list-none text-gray-500 italic text-sm">
+                            ({{ $item->getAttribute('currency') }} {{ \number_format($item->getAttribute('donation_amount'), 0, ',', '.') }})
+                        </li>
                     </td>
                 </tr>
                 @if ($loop->iteration % 15 === 0 && !$loop->last)
