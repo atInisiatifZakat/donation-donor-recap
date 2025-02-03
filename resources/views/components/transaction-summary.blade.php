@@ -2,18 +2,18 @@
     <table>
         <tr class="font-semibold">
             <td class="py-2 bg-izi-green-light pl-2 w-28">Total</td>
-            <td class="py-2 bg-izi-green-light">Rp. {{ $summaries->getFormattedAmountSummary() }}</td>
+            <td class="py-2 bg-izi-green-light">Rp. {{ $summaries->getFormattedTotalAmountSummary() }}</td>
         </tr>
         <tr>
             <td class="py-2 min-w-full w-28 pl-2">Total Zakat</td>
             <td class="py-2 whitespace-normal font-semibold">
-                Rp. {{ $summaries->getFormattedZakatAmount() }}
+                Rp. {{ $summaries->getFormattedZakatTotalAmount() }}
             </td>
         </tr>
         <tr>
             <td class="py-2 min-w-full w-28 pl-2">Total Infaq</td>
             <td class="py-2 whitespace-normal font-semibold">
-                Rp. {{ $summaries->getFormattedInfaqAmount() }}
+                Rp. {{ $summaries->getFormattedInfaqTotalAmount() }}
             </td>
         </tr>
     </table>
@@ -27,13 +27,13 @@
         <tr>
             <td class="py-2 min-w-full w-28">Total Qurban</td>
             <td class="py-2 whitespace-normal  font-semibold">
-                Rp. {{ $summaries->getFormattedQurbanAmount() }}
+                Rp. {{ $summaries->getFormattedQurbanTotalAmount() }}
             </td>
         </tr>
         <tr>
             <td class="py-2 min-w-full w-25">Total Wakaf</td>
             <td class="py-2 whitespace-normal font-semibold">
-                Rp. {{ $summaries->getFormattedWakafAmount() }}
+                Rp. {{ $summaries->getFormattedWakafTotalAmount() }}
             </td>
         </tr>
     </table>
