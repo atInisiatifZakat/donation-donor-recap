@@ -2,6 +2,15 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.2.0 - 2025-02-04
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot in https://github.com/atInisiatifZakat/donation-donor-recap/pull/50
+* Add currency and currency rate into recap template by @nandi-ir in https://github.com/atInisiatifZakat/donation-donor-recap/pull/49
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.1.8...1.2.0
+
 ## 1.1.8 - 2025-01-21
 
 ### What's Changed
