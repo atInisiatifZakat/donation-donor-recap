@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Supports\DonationSummaries;
 
@@ -101,34 +102,34 @@ final class DonationRecap extends Model
     public function getItemCollection(string $donorId): Collection
     {
         return $this->items()
-        ->selectRaw('
-            donation_recap_details.*, 
-            COALESCE(donations.currency, \'IDR\') as currency, 
-            COALESCE(donations.currency_rate, 1.0)::FLOAT as currency_rate
-        ')
-        ->leftJoin('donations', 'donations.id', '=', 'donation_recap_details.donation_id')
-        ->where('donation_recap_details.donor_id', $donorId)->oldest('donation_recap_details.donation_transaction_date')
+        ->select([
+            DB::raw('donation_recap_details.*'),
+            DB::raw('COALESCE(donations.currency, \'IDR\') as currency'),
+            DB::raw('COALESCE(donations.currency_rate, 1.0)::FLOAT as currency_rate') // set default value
+        ])
+        ->leftJoin('donations', 'donations.id', '=', 'donation_id')
+        ->where('donation_recap_details.donor_id', $donorId)->oldest('donation_transaction_date')
         ->get();
     }
 
     public function getCategoryItemsSummaries(string $donorId): DonationSummaries
     {
         $collection = $this->items()
-            ->selectRaw('
-                donation_recap_details.donation_funding_category_id as category_id,
-                donation_recap_details.donation_funding_category_name as category,
-                SUM(donation_recap_details.donation_amount) as donation_amount,
-                COALESCE(donations.currency_rate, 1.0)::FLOAT as currency_rate
-            ')
-            ->leftJoin('donations', 'donations.id', '=', 'donation_recap_details.donation_id')
-            ->where('donation_recap_details.donor_id', $donorId)
-            ->groupBy(
-                'donation_recap_details.donation_funding_category_id',
-                'donation_recap_details.donation_funding_category_name', 
-                'donations.currency_rate'
-            )
-            ->orderBy('donation_recap_details.donation_funding_category_id')
-            ->get();
+        ->select([
+            DB::raw('donation_funding_category_id as category_id'),
+            DB::raw('donation_funding_category_name as category'),  
+            DB::raw('SUM(donation_amount) as donation_amount'),
+            DB::raw('COALESCE(donations.currency_rate, 1.0)::FLOAT as currency_rate') // set default value
+        ])
+        ->leftJoin('donations', 'donations.id', '=', 'donation_id')
+        ->where('donation_recap_details.donor_id', $donorId)
+        ->groupBy([
+            DB::raw('donation_funding_category_id'),
+            DB::raw('donation_funding_category_name'),
+            DB::raw('donations.currency_rate')
+        ])
+        ->orderBy(DB::raw('donation_funding_category_id'))
+        ->get();
 
         return new DonationSummaries(
             $collection->all()
