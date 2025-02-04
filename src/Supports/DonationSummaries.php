@@ -10,38 +10,47 @@ use Inisiatif\DonationRecap\Models\DonationRecapDetail;
 
 final class DonationSummaries extends Collection
 {
-    public function getFormattedAmountSummary(): string
+    public function getFormattedTotalAmountSummary(): string
     {
-        $amount = (float) $this->sum('donation_amount');
+        $totalAmount = $this->getSummary($this->toArray());
 
-        return $amount ? \number_format($amount) : '-';
+        return $totalAmount ? \number_format($totalAmount) : '-';
     }
 
-    public function getFormattedCategoryAmount(FundingCategory $category): string
+    public function getFormattedCategoryTotalAmount(FundingCategory $category): string
     {
         /** @var DonationRecapDetail|null $item */
         $item = $this->where('category_id', $category->value)->first();
 
-        return $item ? \number_format((float) $item->getAttribute('donation_amount')) : '-';
+        return $item ? \number_format((float) $item->getTotalAmount()) : '-';
     }
 
-    public function getFormattedZakatAmount(): string
+    public function getFormattedZakatTotalAmount(): string
     {
-        return $this->getFormattedCategoryAmount(FundingCategory::zakat);
+        return $this->getFormattedCategoryTotalAmount(FundingCategory::zakat);
     }
 
-    public function getFormattedInfaqAmount(): string
+    public function getFormattedInfaqTotalAmount(): string
     {
-        return $this->getFormattedCategoryAmount(FundingCategory::infaq);
+        return $this->getFormattedCategoryTotalAmount(FundingCategory::infaq);
     }
 
-    public function getFormattedQurbanAmount(): string
+    public function getFormattedQurbanTotalAmount(): string
     {
-        return $this->getFormattedCategoryAmount(FundingCategory::qurban);
+        return $this->getFormattedCategoryTotalAmount(FundingCategory::qurban);
     }
 
-    public function getFormattedWakafAmount(): string
+    public function getFormattedWakafTotalAmount(): string
     {
-        return $this->getFormattedCategoryAmount(FundingCategory::wakaf);
+        return $this->getFormattedCategoryTotalAmount(FundingCategory::wakaf);
+    }
+
+    public function getSummary(array $array): float
+    {
+        return array_reduce($array, function ($carry, $item) {
+            $amount = (float) $item['donation_amount'];
+            $currencyRate = (float) $item['currency_rate'];
+            return $carry + ($amount * $currencyRate);
+        }, 0);
     }
 }

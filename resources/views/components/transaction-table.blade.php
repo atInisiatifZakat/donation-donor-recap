@@ -1,4 +1,4 @@
-<table class="min-w-full divide-y divide-gray-200 mt-4">
+<table class="min-w-full divide-y divide-gray-200 mt-2">
     <thead>
         <tr>
             <th class="rounded-l-sm bg-izi-green px-4 py-2 text-left text-xs font-bold tracking-wider">
@@ -43,7 +43,14 @@
                     </td>
                     <td
                         class="px-3 py-1 whitespace-nowrap text-right {{ $loop->last ? '' : 'border-b' }} border-gray-200">
-                        Rp. {{ \number_format($item->getAttribute('donation_amount')) }}
+                        <li class="list-none">
+                            Rp. {{ \number_format($item->getTotalAmount()) }}
+                        </li>
+                        @if ($item->getAttribute('currency') !== 'IDR')
+                            <li class="list-none text-gray-500 italic text-sm">
+                                ({{ $item->getAttribute('currency') }} {{ \number_format($item->getAttribute('donation_amount'), 0, ',', '.') }})
+                            </li>
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -68,7 +75,14 @@
                         </p>
                     </td>
                     <td class="px-3 py-1 whitespace-nowrap text-right border-b border-gray-200">
-                        Rp. {{ \number_format($item->getAttribute('donation_amount')) }}
+                        <li class="list-none">
+                            Rp. {{ \number_format($item->getTotalAmount()) }}
+                        </li>
+                        @if ($item->getAttribute('currency') !== 'IDR')
+                            <li class="list-none text-gray-500 italic text-sm">
+                                ({{ $item->getAttribute('currency') }} {{ \number_format($item->getAttribute('donation_amount'), 0, ',', '.') }})
+                            </li>
+                        @endif
                     </td>
                 </tr>
                 @if ($loop->iteration % 15 === 0 && !$loop->last)
