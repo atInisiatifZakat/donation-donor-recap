@@ -46,9 +46,11 @@
                         <li class="list-none">
                             Rp. {{ \number_format($item->getTotalAmount()) }}
                         </li>
-                        <li class="list-none text-gray-500 italic text-sm">
-                            ({{ $item->getAttribute('currency') }} {{ \number_format($item->getAttribute('donation_amount'), 0, ',', '.') }})
-                        </li>
+                        @if ($item->getAttribute('currency') !== 'IDR')
+                            <li class="list-none text-gray-500 italic text-sm">
+                                ({{ $item->getAttribute('currency') }} {{ \number_format($item->getAttribute('donation_amount'), 0, ',', '.') }})
+                            </li>
+                        @endif
                     </td>
                 </tr>
             @endforeach
@@ -76,9 +78,11 @@
                         <li class="list-none">
                             Rp. {{ \number_format($item->getTotalAmount()) }}
                         </li>
-                        <li class="list-none text-gray-500 italic text-sm">
-                            ({{ $item->getAttribute('currency') }} {{ \number_format($item->getAttribute('donation_amount'), 0, ',', '.') }})
-                        </li>
+                        @if ($item->getAttribute('currency') !== 'IDR')
+                            <li class="list-none text-gray-500 italic text-sm">
+                                ({{ $item->getAttribute('currency') }} {{ \number_format($item->getAttribute('donation_amount'), 0, ',', '.') }})
+                            </li>
+                        @endif
                     </td>
                 </tr>
                 @if ($loop->iteration % 15 === 0 && !$loop->last)
