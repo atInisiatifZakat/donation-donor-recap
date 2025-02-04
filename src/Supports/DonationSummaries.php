@@ -50,6 +50,7 @@ final class DonationSummaries extends Collection
         return array_reduce($array, function ($carry, $item) {
             $amount = (float) $item['donation_amount'];
             $currencyRate = (float) $item['currency_rate'];
+
             return $carry + ($amount * $currencyRate);
         }, 0);
     }
