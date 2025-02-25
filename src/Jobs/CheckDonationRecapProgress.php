@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Enums\DonationRecapState;
+use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 
 final class CheckDonationRecapProgress implements ShouldBeUnique, ShouldQueue
 {
@@ -21,6 +22,8 @@ final class CheckDonationRecapProgress implements ShouldBeUnique, ShouldQueue
 
     public function __construct(
         public readonly DonationRecap $donationRecap,
+        public readonly DonationRecapDonor $donor,
+
     ) {}
 
     public function handle(): void
@@ -28,7 +31,7 @@ final class CheckDonationRecapProgress implements ShouldBeUnique, ShouldQueue
         $this->donationRecap->refresh();
 
         $countTotal = $this->donationRecap->getAttribute('count_total');
-        $countProgress = $this->donationRecap->getAttribute('count_progress');
+        $countProgress = $this->donationRecap->donors()->where('state', 'combined')->count();
 
         if ($countTotal === $countProgress && ! $this->donationRecap->inState(DonationRecapState::done)) {
             $this->donationRecap->state(DonationRecapState::done);

@@ -32,11 +32,11 @@ final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
 
         foreach ($donors as $donor) {
             $jobChain = [
-                new IncreaseProgressDonationRecap($this->donationRecap),
                 new BuildDonationRecapDetail($this->donationRecap, $donor),
                 new GenerateDonorRecapFile($this->donationRecap, $donor),
                 new CombineDonorRecapFile($this->donationRecap, $donor),
-                new CheckDonationRecapProgress($this->donationRecap),
+                new IncreaseProgressDonationRecap($this->donationRecap, $donor),
+                new CheckDonationRecapProgress($this->donationRecap, $donor),
             ];
 
             $this->dispatchChain($jobChain);
