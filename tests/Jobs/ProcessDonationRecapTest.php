@@ -37,7 +37,7 @@ final class ProcessDonationRecapTest extends TestCase
 
         ]);
 
-        DonationRecapDonorFactory::new()->times(2)->create([
+        DonationRecapDonorFactory::new()->times(1)->create([
             'donation_recap_id' => $recap->getKey(),
             'state' => ProcessingState::new->value,
         ]);
@@ -47,18 +47,12 @@ final class ProcessDonationRecapTest extends TestCase
 
         Bus::assertChained([
             // First Donor Recap
-            IncreaseProgressDonationRecap::class,
             BuildDonationRecapDetail::class,
             GenerateDonorRecapFile::class,
             CombineDonorRecapFile::class,
+            IncreaseProgressDonationRecap::class,
             CheckDonationRecapProgress::class,
 
-            // Second Donor Recap
-            IncreaseProgressDonationRecap::class,
-            BuildDonationRecapDetail::class,
-            GenerateDonorRecapFile::class,
-            CombineDonorRecapFile::class,
-            CheckDonationRecapProgress::class,
         ]);
     }
 }

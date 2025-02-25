@@ -30,15 +30,17 @@ final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
 
         $donors = $this->donationRecap->donors()->get();
 
-        $jobChains = $donors->flatMap(fn (DonationRecapDonor $donor) => [
-            new IncreaseProgressDonationRecap($this->donationRecap),
-            new BuildDonationRecapDetail($this->donationRecap, $donor),
-            new GenerateDonorRecapFile($this->donationRecap, $donor),
-            new CombineDonorRecapFile($this->donationRecap, $donor),
-            new CheckDonationRecapProgress($this->donationRecap),
-        ])->toArray();
+        foreach ($donors as $donor) {
+            $jobChain = [
+                new BuildDonationRecapDetail($this->donationRecap, $donor),
+                new GenerateDonorRecapFile($this->donationRecap, $donor),
+                new CombineDonorRecapFile($this->donationRecap, $donor),
+                new IncreaseProgressDonationRecap($this->donationRecap, $donor),
+                new CheckDonationRecapProgress($this->donationRecap, $donor),
+            ];
 
-        $this->dispatchChain($jobChains);
+            $this->dispatchChain($jobChain);
+        }
     }
 
     public function uniqueId(): string
