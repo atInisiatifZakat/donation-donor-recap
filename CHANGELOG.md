@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.2.1 - 2025-02-25
+
+### What's Changed
+
+* Fixing bug : error sqs by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/51
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.2.0...1.2.1
+
 ## 1.2.0 - 2025-02-04
 
 ### What's Changed
