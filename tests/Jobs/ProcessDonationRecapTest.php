@@ -47,10 +47,10 @@ final class ProcessDonationRecapTest extends TestCase
 
         Bus::assertChained([
             // First Donor Recap
-            IncreaseProgressDonationRecap::class,
             BuildDonationRecapDetail::class,
             GenerateDonorRecapFile::class,
             CombineDonorRecapFile::class,
+            IncreaseProgressDonationRecap::class,
             CheckDonationRecapProgress::class,
 
         ]);
