@@ -26,7 +26,7 @@ final class SendingDonationRecapJob implements ShouldQueue
         $this->donationRecap->donors()->each(function (DonationRecapDonor $recapDonor): void {
             $this->donationRecap->recordHistory('Memproses pengiriman rekap donasi');
 
-            \dispatch(new SendingRecapPerDonor($this->donationRecap, $recapDonor))->delay(now()->addSecond());
+            \dispatch(new SendingRecapPerDonor($this->donationRecap, $recapDonor))->delay(now()->addSeconds(6));
         });
     }
 }
