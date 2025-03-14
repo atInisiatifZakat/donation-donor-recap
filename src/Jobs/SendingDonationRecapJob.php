@@ -23,10 +23,16 @@ final class SendingDonationRecapJob implements ShouldQueue
 
     public function handle(): void
     {
-        $this->donationRecap->donors()->each(function (DonationRecapDonor $recapDonor): void {
+        $now = now();
+
+        $this->donationRecap->donors()->each(function (DonationRecapDonor $recapDonor, int $i) use ($now): void {
             $this->donationRecap->recordHistory('Memproses pengiriman rekap donasi');
 
-            \dispatch(new SendingRecapPerDonor($this->donationRecap, $recapDonor))->delay(now()->addSeconds(6));
+            if ($i % 60 === 0) {
+                $now = $now->addSecond();
+            }
+
+            \dispatch(new SendingRecapPerDonor($this->donationRecap, $recapDonor))->delay($now);
         });
     }
 }
