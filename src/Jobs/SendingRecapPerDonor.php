@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Inisiatif\DonationRecap\Jobs;
 
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
@@ -21,6 +22,7 @@ final class SendingRecapPerDonor implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
+    use Batchable;
 
     public function __construct(
         private readonly DonationRecap $donationRecap,
@@ -37,7 +39,8 @@ final class SendingRecapPerDonor implements ShouldQueue
         // Send email kalo support
         if ($donor?->sendEmailNotification()) {
             $mailable = new SendDonationRecapMail(
-                $this->donationRecap, $this->donationRecapDonor
+                $this->donationRecap,
+                $this->donationRecapDonor
             );
 
             Mail::to($donor->getEmail())->send($mailable);
@@ -48,7 +51,8 @@ final class SendingRecapPerDonor implements ShouldQueue
         // Send sms kalo support
         if ($donor?->sendSmsNotification()) {
             $donor->notify(new SmsDonationRecapNotification(
-                $this->donationRecap, $this->donationRecapDonor
+                $this->donationRecap,
+                $this->donationRecapDonor
             ));
 
             $this->donationRecapDonor->touchQuietly('sms_sending_at');
@@ -57,7 +61,8 @@ final class SendingRecapPerDonor implements ShouldQueue
         // Send whatsapp kalo support
         if ($donor?->sendWhatsAppNotification()) {
             $donor->notify(new WhatsAppDonationRecapNotification(
-                $this->donationRecap, $this->donationRecapDonor
+                $this->donationRecap,
+                $this->donationRecapDonor
             ));
 
             $this->donationRecapDonor->touchQuietly('whatsapp_sending_at');
