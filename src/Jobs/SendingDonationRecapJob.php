@@ -19,6 +19,7 @@ final class SendingDonationRecapJob implements ShouldQueue
     use SerializesModels;
 
     private const BATCH_SIZE = 100;
+
     private const DELAY_SECONDS = 2;
 
     public function __construct(
@@ -45,7 +46,7 @@ final class SendingDonationRecapJob implements ShouldQueue
         });
 
         // Dispatch the remaining jobs
-        if (!empty($jobs)) {
+        if (! empty($jobs)) {
             Bus::batch($jobs)->allowFailures(true)->dispatch();
         }
     }

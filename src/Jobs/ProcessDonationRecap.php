@@ -12,7 +12,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
-use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 
 final class ProcessDonationRecap implements ShouldBeUnique, ShouldQueue
 {

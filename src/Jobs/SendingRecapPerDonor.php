@@ -19,10 +19,10 @@ use Inisiatif\DonationRecap\Notifications\WhatsAppDonationRecapNotification;
 
 final class SendingRecapPerDonor implements ShouldQueue
 {
+    use Batchable;
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
-    use Batchable;
 
     public function __construct(
         private readonly DonationRecap $donationRecap,
