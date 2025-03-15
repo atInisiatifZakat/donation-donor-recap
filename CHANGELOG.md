@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.2.2 - 2025-03-15
+
+### What's Changed
+
+* Add notification job batching by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/52
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.2.1...1.2.2
+
 ## 1.2.1 - 2025-02-25
 
 ### What's Changed
