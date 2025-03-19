@@ -26,8 +26,8 @@ final class SendingRecapPerDonor implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private const MAX_ATTEMPTS = 100;
-    private const DELAY_SECONDS = 2;
+    private const MAX_ATTEMPTS = 75;
+    private const DELAY_SECONDS = 1;
     private const RATE_LIMITER_KEY = 'sending-recap';
 
     public function __construct(
