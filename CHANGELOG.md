@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.2.3 - 2025-03-19
+
+### What's Changed
+
+* Implement rate limiter on sending recap donor job by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/53
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.2.2...1.2.3
+
 ## 1.2.2 - 2025-03-15
 
 ### What's Changed
