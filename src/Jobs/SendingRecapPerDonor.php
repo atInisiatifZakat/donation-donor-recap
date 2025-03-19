@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Inisiatif\DonationRecap\Jobs;
 
+use DateTime;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
@@ -11,6 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Inisiatif\DonationRecap\Models\Donor;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\RateLimiter;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 use Inisiatif\DonationRecap\Mail\SendDonationRecapMail;
@@ -24,6 +26,10 @@ final class SendingRecapPerDonor implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
+    private const MAX_ATTEMPTS = 75;
+    private const DELAY_SECONDS = 1;
+    private const RATE_LIMITER_KEY = 'sending-recap';
+
     public function __construct(
         private readonly DonationRecap $donationRecap,
         private readonly DonationRecapDonor $donationRecapDonor,
@@ -31,6 +37,12 @@ final class SendingRecapPerDonor implements ShouldQueue
 
     public function handle(): void
     {
+
+        if ($this->isRateLimited()) {
+            $this->release(self::DELAY_SECONDS);
+            return;
+        }
+
         $this->donationRecapDonor->loadMissing('donor');
 
         /** @var Donor|null $donor */
@@ -69,5 +81,25 @@ final class SendingRecapPerDonor implements ShouldQueue
         }
 
         $this->donationRecap->touchQuietly('last_send_at');
+    }
+
+    private function isRateLimited(): bool
+    {
+        if (RateLimiter::tooManyAttempts(self::RATE_LIMITER_KEY, self::MAX_ATTEMPTS)) {
+            return true;
+        }
+
+        RateLimiter::hit(self::RATE_LIMITER_KEY, self::DELAY_SECONDS);
+        return false;
+    }
+
+    public function uniqueId(): string
+    {
+        return 'sending-recap-donor-' . $this->donationRecapDonor->getKey();
+    }
+
+    public function retryUntil(): DateTime
+    {
+        return now()->addMinutes(5);
     }
 }
