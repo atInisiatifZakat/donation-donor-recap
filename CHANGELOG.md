@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.2.4 - 2025-03-25
+
+### What's Changed
+
+* Add donor-recap list download feature by email by @nandi-ir in https://github.com/atInisiatifZakat/donation-donor-recap/pull/54
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.2.3...1.2.4
+
 ## 1.2.3 - 2025-03-19
 
 ### What's Changed
