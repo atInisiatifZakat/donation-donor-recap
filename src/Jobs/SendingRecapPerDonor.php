@@ -27,7 +27,9 @@ final class SendingRecapPerDonor implements ShouldQueue
     use SerializesModels;
 
     private const MAX_ATTEMPTS = 75;
+
     private const DELAY_SECONDS = 1;
+
     private const RATE_LIMITER_KEY = 'sending-recap';
 
     public function __construct(
@@ -40,6 +42,7 @@ final class SendingRecapPerDonor implements ShouldQueue
 
         if ($this->isRateLimited()) {
             $this->release(self::DELAY_SECONDS);
+
             return;
         }
 
@@ -90,12 +93,13 @@ final class SendingRecapPerDonor implements ShouldQueue
         }
 
         RateLimiter::hit(self::RATE_LIMITER_KEY, self::DELAY_SECONDS);
+
         return false;
     }
 
     public function uniqueId(): string
     {
-        return 'sending-recap-donor-' . $this->donationRecapDonor->getKey();
+        return 'sending-recap-donor-'.$this->donationRecapDonor->getKey();
     }
 
     public function retryUntil(): DateTime
