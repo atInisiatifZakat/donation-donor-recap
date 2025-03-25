@@ -24,7 +24,7 @@ final class SendingDonorRecapJob implements ShouldQueue
         $filePath = \sprintf(
             'recaps/donor_list_%s_%s_%s.xls',
             now()->year,
-            $this->data->donation_recap_id ?? 'unknown',
+            $this->data->donationRecapId ?? 'unknown',
             Str::random(10)
         );
 
