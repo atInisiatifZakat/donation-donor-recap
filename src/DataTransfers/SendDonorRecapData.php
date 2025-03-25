@@ -6,8 +6,8 @@ namespace Inisiatif\DonationRecap\DataTransfers;
 
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Attributes\Validation\Nullable;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
+use Spatie\LaravelData\Attributes\Validation\Nullable;
 use Spatie\LaravelData\Attributes\Validation\Required;
 use Spatie\LaravelData\Attributes\Validation\StringType;
 
@@ -29,7 +29,7 @@ final class SendDonorRecapData extends Data
 
         #[Required, StringType]
         public readonly string $donationRecapState,
-        
+
         #[Nullable]
         public readonly FilterAttributes $filter,
 
@@ -53,8 +53,6 @@ final class FilterAttributes extends Data
         public readonly ?string $donorPhone,
     ) {}
 }
-
-
 
 #[MapName(SnakeCaseMapper::class)]
 final class DataAttributes extends Data

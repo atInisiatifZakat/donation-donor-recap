@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Inisiatif\DonationRecap\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Auth\User;
-use Inisiatif\DonationRecap\DataTransfers\SendDonorRecapData;
-
 use Inisiatif\DonationRecap\Mail\SendDonorRecapMail;
+use Inisiatif\DonationRecap\DataTransfers\SendDonorRecapData;
 
 final class SendingDonorRecap implements ShouldQueue
 {
