@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Inisiatif\DonationRecap\Mail;
 
 use Carbon\Carbon;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Mail\Mailable;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -33,11 +33,11 @@ final class SendDonorRecapMail extends Mailable
         return new Content(
             view: 'recap::mail.donor-list',
             with: [
-                'url' => url('/storage/' . $this->filePath),
+                'url' => url('/storage/'.$this->filePath),
                 'username' => $this->user->getAttribute('name'),
                 'donationRecapId' => $this->data->donationRecapId,
                 'templateName' => $this->data->templateName,
-                'startAt' => Carbon::parse($this->data->startAt)->translatedFormat('d F Y'), 
+                'startAt' => Carbon::parse($this->data->startAt)->translatedFormat('d F Y'),
                 'endAt' => Carbon::parse($this->data->endAt)->translatedFormat('d F Y'),
                 'donationRecapState' => $this->data->donationRecapState,
                 'filter' => [
