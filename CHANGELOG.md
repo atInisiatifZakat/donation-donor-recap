@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.2.5 - 2025-05-09
+
+### What's Changed
+
+* Exclude wakaf donation from recap by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/55
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.2.4...1.2.5
+
 ## 1.2.4 - 2025-03-25
 
 ### What's Changed
