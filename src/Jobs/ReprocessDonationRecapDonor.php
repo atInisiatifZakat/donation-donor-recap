@@ -35,6 +35,7 @@ final class ReprocessDonationRecapDonor implements ShouldBeUnique, ShouldQueue
         );
 
         $jobChains = [
+            new ClearDonationRecapDetail($this->donationRecap, $this->donor),
             new BuildDonationRecapDetail($this->donationRecap, $this->donor),
             new GenerateDonorRecapFile($this->donationRecap, $this->donor),
             new CombineDonorRecapFile($this->donationRecap, $this->donor),
