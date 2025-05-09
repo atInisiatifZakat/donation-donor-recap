@@ -9,8 +9,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Inisiatif\DonationRecap\Traits\HasTableName;
 use Inisiatif\DonationRecap\Models\DonationRecap;
-use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Enums\FundingCategory;
+use Inisiatif\DonationRecap\Enums\DonationRecapState;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 
 final class DonationRecapDetailBuilder
@@ -56,7 +56,7 @@ final class DonationRecapDetailBuilder
             )
             ->where(self::getDonationTable().'.donor_id', $donor->getAttribute('donor_id'))
             ->where(self::getDonationTable().'.transaction_status', 'VERIFIED')
-            ->where(self::getFundingCategoryTable() . '.id', '!=', FundingCategory::wakaf->value)
+            ->where(self::getFundingCategoryTable().'.id', '!=', FundingCategory::wakaf->value)
             ->whereNull(self::getDonationDetailTable().'.deleted_at')
             ->whereBetween(self::getDonationTable().'.transaction_date', [
                 $recap->getPeriodStartDate()->startOfDay(),
