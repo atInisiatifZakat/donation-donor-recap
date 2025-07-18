@@ -27,7 +27,8 @@ final class WhatsAppDonationRecapNotification extends Notification implements Qo
     use InteractsWithQueue;
     use Queueable;
 
-    public int $tries = 1;
+    public int $tries = 3; 
+    public int $backoff = 5; 
 
     public function __construct(
         private readonly DonationRecap $donationRecap,
