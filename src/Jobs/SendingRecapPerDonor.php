@@ -26,9 +26,9 @@ final class SendingRecapPerDonor implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    private const MAX_ATTEMPTS = 75;
+    private const MAX_ATTEMPTS = 45;
 
-    private const DELAY_SECONDS = 1;
+    private const DELAY_SECONDS = 2;
 
     private const RATE_LIMITER_KEY = 'sending-recap';
 
@@ -99,7 +99,7 @@ final class SendingRecapPerDonor implements ShouldQueue
 
     public function uniqueId(): string
     {
-        return 'sending-recap-donor-'.$this->donationRecapDonor->getKey();
+        return 'sending-recap-donor-' . $this->donationRecapDonor->getKey();
     }
 
     public function retryUntil(): DateTime

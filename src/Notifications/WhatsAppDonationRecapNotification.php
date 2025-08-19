@@ -21,8 +21,9 @@ use Inisiatif\WhatsappQontakPhp\Illuminate\Envelope;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 use Inisiatif\WhatsappQontakPhp\Illuminate\QontakChannel;
 use Inisiatif\WhatsappQontakPhp\Illuminate\QontakNotification;
+use Inisiatif\WhatsappQontakPhp\Illuminate\QontakShouldDelay;
 
-final class WhatsAppDonationRecapNotification extends Notification implements QontakNotification, ShouldQueue
+final class WhatsAppDonationRecapNotification extends Notification implements QontakNotification, QontakShouldDelay, ShouldQueue
 {
     use InteractsWithQueue;
     use Queueable;
@@ -70,5 +71,10 @@ final class WhatsAppDonationRecapNotification extends Notification implements Qo
         $phone = $donor->getPhone();
 
         return $phone->getAttribute('number');
+    }
+
+    public function getReleaseDelay(): int
+    {
+        return 5;
     }
 }
