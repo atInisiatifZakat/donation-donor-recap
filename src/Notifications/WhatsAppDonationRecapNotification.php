@@ -20,8 +20,8 @@ use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Inisiatif\WhatsappQontakPhp\Illuminate\Envelope;
 use Inisiatif\DonationRecap\Models\DonationRecapDonor;
 use Inisiatif\WhatsappQontakPhp\Illuminate\QontakChannel;
-use Inisiatif\WhatsappQontakPhp\Illuminate\QontakNotification;
 use Inisiatif\WhatsappQontakPhp\Illuminate\QontakShouldDelay;
+use Inisiatif\WhatsappQontakPhp\Illuminate\QontakNotification;
 
 final class WhatsAppDonationRecapNotification extends Notification implements QontakNotification, QontakShouldDelay, ShouldQueue
 {

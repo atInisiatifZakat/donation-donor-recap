@@ -99,7 +99,7 @@ final class SendingRecapPerDonor implements ShouldQueue
 
     public function uniqueId(): string
     {
-        return 'sending-recap-donor-' . $this->donationRecapDonor->getKey();
+        return 'sending-recap-donor-'.$this->donationRecapDonor->getKey();
     }
 
     public function retryUntil(): DateTime
