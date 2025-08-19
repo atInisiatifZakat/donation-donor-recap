@@ -2,6 +2,20 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.3.0 - 2025-08-19
+
+### What's Changed
+
+* Fixing bug : donation double when reprocess by @anshour in https://github.com/atInisiatifZakat/donation-donor-recap/pull/56
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/atInisiatifZakat/donation-donor-recap/pull/57
+* refactor: merubah rate limit saat pengiriman pesan by @ihsanfikri12 in https://github.com/atInisiatifZakat/donation-donor-recap/pull/59
+
+### New Contributors
+
+* @ihsanfikri12 made their first contribution in https://github.com/atInisiatifZakat/donation-donor-recap/pull/59
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.2.5...1.3.0
+
 ## 1.2.5 - 2025-05-09
 
 ### What's Changed
