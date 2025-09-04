@@ -14,6 +14,8 @@ return [
 
         'donor_phone_table_name' => env('RECORDING_DONOR_PHONE_TABLE_NAME', 'edonation.donor_phones'),
 
+        'donor_tax_number_table_name' => env('RECORDING_DONOR_TAX_NUMBER_TABLE_NAME', 'edonation.donor_tax_numbers'),
+
         'branch_table_name' => env('RECORDING_BRANCH_TABLE_NAME', 'edonation.branches'),
 
         'employee_table_name' => env('RECORDING_EMPLOYEE_TABLE_NAME', 'edonation.employees'),

@@ -8,6 +8,7 @@ use Webmozart\Assert\Assert;
 use InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
@@ -63,6 +64,11 @@ final class Donor extends Model
     public function phone(): BelongsTo
     {
         return $this->belongsTo(Recap::getDonorPhoneClassModel(), 'donor_phone_id')->withoutGlobalScopes();
+    }
+
+    public function tax(): HasOne
+    {
+        return $this->hasOne(Recap::getDonorTaxNumberClassModel());
     }
 
     public function getPhone(): ?DonorPhone
