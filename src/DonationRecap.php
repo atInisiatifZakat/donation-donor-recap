@@ -15,6 +15,7 @@ use Inisiatif\DonationRecap\Traits\HasTableName;
 use Inisiatif\DonationRecap\Models\DonationDetail;
 use Inisiatif\DonationRecap\Traits\HasQueueConfig;
 use Inisiatif\DonationRecap\DataTransfers\DonorData;
+use Inisiatif\DonationRecap\Models\DonorTaxNumber;
 use Inisiatif\DonationRecap\Traits\HasPuppeteerConfig;
 use Inisiatif\DonationRecap\Traits\HasFileStorageConfig;
 use Inisiatif\DonationRecap\Traits\HasNotificationConfig;
@@ -37,6 +38,11 @@ final class DonationRecap
      * @var class-string<Model>
      */
     private static string $donorPhoneModel = DonorPhone::class;
+
+    /**
+     * @var class-string<Model>
+     */
+    private static string $donorTaxNumberModel = DonorTaxNumber::class;
 
     /**
      * @var class-string<Model>
@@ -82,6 +88,14 @@ final class DonationRecap
     public static function getDonorPhoneClassModel(): string
     {
         return self::$donorPhoneModel;
+    }
+
+    /**
+     * @return class-string<Model>
+     */
+    public static function getDonorTaxNumberClassModel(): string
+    {
+        return self::$donorTaxNumberModel;
     }
 
     /**

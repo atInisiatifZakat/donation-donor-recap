@@ -18,6 +18,12 @@ trait HasTableName
         return \config('recap.recording.donor_phone_table_name');
     }
 
+    public static function getDonorTaxNumberTable(): ?string
+    {
+        /** @var string|null */
+        return \config('recap.recording.donor_tax_number_table_name');
+    }
+
     public static function getBranchTable(): ?string
     {
         /** @var string|null */

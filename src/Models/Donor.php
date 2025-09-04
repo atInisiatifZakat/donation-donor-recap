@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class Donor extends Model
 {
@@ -63,6 +64,11 @@ final class Donor extends Model
     public function phone(): BelongsTo
     {
         return $this->belongsTo(Recap::getDonorPhoneClassModel(), 'donor_phone_id')->withoutGlobalScopes();
+    }
+
+    public function tax(): HasOne
+    {
+        return $this->hasOne(Recap::getDonorTaxNumberClassModel());
     }
 
     public function getPhone(): ?DonorPhone
