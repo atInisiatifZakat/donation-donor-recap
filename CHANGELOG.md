@@ -2,6 +2,16 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.3.1 - 2025-09-04
+
+### What's Changed
+
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot[bot] in https://github.com/atInisiatifZakat/donation-donor-recap/pull/58
+* feat : menambahkan npwp pada laporan by @nandi-ir in https://github.com/atInisiatifZakat/donation-donor-recap/pull/61
+* Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/atInisiatifZakat/donation-donor-recap/pull/60
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.3.0...1.3.1
+
 ## 1.3.0 - 2025-08-19
 
 ### What's Changed
