@@ -33,8 +33,8 @@ final class DonorResolver implements Contract\DonorResolver
             'donorId' => $donor->getKey(),
             'donorName' => $donor->getAttribute('name'),
             'donorIdentificationNumber' => $donor->getAttribute('identification_number'),
-            'donorPhoneNumber' => $donor->getAttribute('phone_number'),
-            'donorTaxNumber' => $donor->getAttribute('tax_number'),
+            'donorPhoneNumber' => $donor->getAttribute('phone')?->getAttribute('number') ?? null,
+            'donorTaxNumber' => $donor->getAttribute('tax')?->getAttribute('tax_number') ?? null,
             'donorAddress' => $donor->getAttribute('address'),
         ]);
     }
