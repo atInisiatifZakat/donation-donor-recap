@@ -2,6 +2,16 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.4.0 - 2026-01-13
+
+### What's Changed
+
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/atInisiatifZakat/donation-donor-recap/pull/63
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/atInisiatifZakat/donation-donor-recap/pull/62
+* feat: ubah variable body sesuai template baru by @nandi-ir in https://github.com/atInisiatifZakat/donation-donor-recap/pull/64
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.3.1...1.4.0
+
 ## 1.3.1 - 2025-09-04
 
 ### What's Changed
