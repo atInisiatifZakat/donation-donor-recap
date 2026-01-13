@@ -82,8 +82,10 @@ final class DonationRecap extends Model
     {
         return \sprintf(
             '%s - %s',
-            $this->getPeriodStartDate()->format('d M Y'),
-            $this->getPeriodEndDate()->format('d M Y')
+            $this->getPeriodStartDate()
+                ->translatedFormat('d F'),
+            $this->getPeriodEndDate()
+                ->translatedFormat('d F Y')
         );
     }
 
