@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.4.2 - 2026-01-15
+
+### What's Changed
+
+* feat : move to else by @nandi-ir in https://github.com/atInisiatifZakat/donation-donor-recap/pull/66
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.4.1...1.4.2
+
 ## 1.4.1 - 2026-01-15
 
 ### What's Changed
