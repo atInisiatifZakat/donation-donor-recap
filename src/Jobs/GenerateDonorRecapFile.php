@@ -14,6 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Inisiatif\DonationRecap\GeneratePdf;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Support\Facades\Log;
 use Inisiatif\DonationRecap\Models\DonationRecap;
 use Inisiatif\DonationRecap\Enums\ProcessingState;
 use Inisiatif\DonationRecap\DonationRecap as Recap;
@@ -53,6 +54,8 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
 
             if (Str::isJson($content)) {
                 $content = Arr::get(\json_decode($content, true, 512, JSON_THROW_ON_ERROR), 'result');
+            } else {
+                Log::info('Content Data', ['content' => $content]);
             }
 
             Storage::disk(Recap::getDefaultFileDisk())->put($path, \base64_decode($content));
