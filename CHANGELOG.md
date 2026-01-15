@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.4.1 - 2026-01-15
+
+### What's Changed
+
+* feat: add log on generate-donor and update whatsapp qontak version by @nandi-ir in https://github.com/atInisiatifZakat/donation-donor-recap/pull/65
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.4.0...1.4.1
+
 ## 1.4.0 - 2026-01-13
 
 ### What's Changed
