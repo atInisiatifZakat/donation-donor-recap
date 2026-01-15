@@ -8,6 +8,7 @@ use Throwable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
@@ -50,6 +51,8 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
                 'items' => $this->donationRecap->getItemCollection($donorId),
                 'summaries' => $this->donationRecap->getCategoryItemsSummaries($donorId),
             ])->base64pdf();
+
+            Log::info('Content Data', ['content' => $content]);
 
             if (Str::isJson($content)) {
                 $content = Arr::get(\json_decode($content, true, 512, JSON_THROW_ON_ERROR), 'result');
