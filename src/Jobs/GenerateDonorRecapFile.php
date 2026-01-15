@@ -52,10 +52,10 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
                 'summaries' => $this->donationRecap->getCategoryItemsSummaries($donorId),
             ])->base64pdf();
 
+            Log::info('Content Data', ['content' => $content]);
+            
             if (Str::isJson($content)) {
                 $content = Arr::get(\json_decode($content, true, 512, JSON_THROW_ON_ERROR), 'result');
-            } else {
-                Log::info('Content Data', ['content' => $content]);
             }
 
             Storage::disk(Recap::getDefaultFileDisk())->put($path, \base64_decode($content));
