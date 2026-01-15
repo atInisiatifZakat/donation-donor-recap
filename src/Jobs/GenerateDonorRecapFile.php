@@ -53,7 +53,7 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
             ])->base64pdf();
 
             Log::info('Content Data', ['content' => $content]);
-            
+
             if (Str::isJson($content)) {
                 $content = Arr::get(\json_decode($content, true, 512, JSON_THROW_ON_ERROR), 'result');
             }
