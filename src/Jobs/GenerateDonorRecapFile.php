@@ -55,7 +55,9 @@ final class GenerateDonorRecapFile implements ShouldBeUnique, ShouldQueue
             if (Str::isJson($content)) {
                 $content = Arr::get(\json_decode($content, true, 512, JSON_THROW_ON_ERROR), 'result');
             } else {
-                Log::info('Content Data', ['content' => $content]);
+                Log::debug('Failed to generate base64 PDF content for donor recap', [
+                    'content' => $content,
+                ]);
             }
 
             Storage::disk(Recap::getDefaultFileDisk())->put($path, \base64_decode($content));
