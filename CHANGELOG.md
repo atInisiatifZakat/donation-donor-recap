@@ -2,6 +2,15 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.4.3 - 2026-02-02
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/atInisiatifZakat/donation-donor-recap/pull/67
+* feat: ubah tahun dan tambah debug by @nandi-ir in https://github.com/atInisiatifZakat/donation-donor-recap/pull/68
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.4.2...1.4.3
+
 ## 1.4.2 - 2026-01-15
 
 ### What's Changed
