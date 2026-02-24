@@ -53,7 +53,7 @@ final class WhatsAppDonationRecapNotification extends Notification implements Qo
 
         $header = new Header('DOCUMENT', $fileUrl, 'REKAP-ZISWAF.pdf');
 
-        $body = [new Body($name), new Body($name)];
+        $body = [new Body($name), new Body($period)];
 
         $message = new Message($receiver, new Language('id'), $body, $header);
 
