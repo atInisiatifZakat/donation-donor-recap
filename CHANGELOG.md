@@ -2,6 +2,14 @@
 
 All notable changes to `donation-donor-recap` will be documented in this file.
 
+## 1.6.0 - 2026-02-25
+
+### What's Changed
+
+* feat: kembali ke format periode by @nandi-ir in https://github.com/atInisiatifZakat/donation-donor-recap/pull/70
+
+**Full Changelog**: https://github.com/atInisiatifZakat/donation-donor-recap/compare/1.5.0...1.6.0
+
 ## 1.5.0 - 2026-02-11
 
 ### What's Changed
